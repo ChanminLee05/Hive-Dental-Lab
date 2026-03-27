@@ -17,7 +17,8 @@ import {
   ArrowUpRight,
   Mail,
   Instagram,
-  Facebook
+  Facebook,
+  CheckCircle2
 } from "lucide-react";
 import { useState, useEffect, ReactNode, FormEvent } from "react";
 
@@ -64,15 +65,16 @@ const serviceCategories: ServiceCategory[] = [
 ];
 
 const galleryItems: GalleryItem[] = [
-  { id: 1, title: "Anterior Zirconia", category: "Aesthetic", imageUrl: "https://www.docseducation.com/sites/default/files/inline-images/banner-4_26.jpg?auto=format&fit=crop&q=80&w=800" },
-  { id: 2, title: "Emax Veneers", category: "Aesthetic", imageUrl: "https://media.oralhealthgroup.com/uploads/2017/11/Siu-photos-YN-22.jpg?auto=format&fit=crop&q=80&w=800" },
-  { id: 3, title: "PFM Restoration", category: "Fixed", imageUrl: "https://atlasdental.ca/wp-content/uploads/2023/07/pfm-dental-crown-2.jpg?auto=format&fit=crop&q=80&w=800" },
-  { id: 4, title: "Implant Solutions", category: "Implant", imageUrl: "https://i2.wp.com/evolutiondental.net/wp-content/uploads/screw-retained-01.png?w=1184?auto=format&fit=crop&q=80&w=800" },
-  { id: 5, title: "Posterior Zirconia", category: "Fixed", imageUrl: "https://www.bremadent.co.uk/uploads/4/8/6/4/48649227/full-contour-zirconia-posterior-crowns_orig.png?auto=format&fit=crop&q=80&w=800" },
-  { id: 6, title: "Full Gold Crown", category: "Fixed", imageUrl: "https://atlasdental.ca/wp-content/uploads/2023/07/gold-crown-2-768x513.jpeg?auto=format&fit=crop&q=80&w=800" },
+  { id: 1, title: "Anterior Zirconia", category: "Aesthetic", imageUrl: "https://images.unsplash.com/photo-1588776814546-1ffce47267a5?auto=format&fit=crop&q=80&w=800" },
+  { id: 2, title: "Emax Veneers", category: "Aesthetic", imageUrl: "https://images.unsplash.com/photo-1598256989800-fe5f95da9787?auto=format&fit=crop&q=80&w=800" },
+  { id: 3, title: "PFM Restoration", category: "Fixed", imageUrl: "https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&q=80&w=800" },
+  { id: 4, title: "Implant Solutions", category: "Implant", imageUrl: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&q=80&w=800" },
+  { id: 5, title: "Posterior Zirconia", category: "Fixed", imageUrl: "https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&q=80&w=800" },
+  { id: 6, title: "Full Gold Crown", category: "Fixed", imageUrl: "https://images.unsplash.com/photo-1598256989800-fe5f95da9787?auto=format&fit=crop&q=80&w=800" },
 ];
 
 export default function App() {
+  const [currentPage, setCurrentPage] = useState<'home' | 'digital-scan'>('home');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeCategory, setActiveCategory] = useState("All");
@@ -142,10 +144,28 @@ export default function App() {
 
           {/* Desktop Nav */}
           <div className="hidden md:flex items-center gap-8">
-            {["Services", "About", "Gallery", "Contact"].map((item) => (
-              <a key={item} href={`#${item.toLowerCase()}`} className="text-sm font-medium hover:opacity-50 transition-opacity uppercase tracking-widest">
+            {["Services", "About", "Gallery", "Digital Scan", "Contact"].map((item) => (
+              <button 
+                key={item} 
+                onClick={() => {
+                  if (item === "Digital Scan") {
+                    setCurrentPage('digital-scan');
+                    window.scrollTo(0, 0);
+                  } else {
+                    setCurrentPage('home');
+                    setTimeout(() => {
+                      const el = document.getElementById(item.toLowerCase());
+                      if (el) el.scrollIntoView({ behavior: 'smooth' });
+                    }, 100);
+                  }
+                }}
+                className={`text-sm font-medium hover:opacity-50 transition-opacity uppercase tracking-widest ${
+                  (item === "Digital Scan" && currentPage === 'digital-scan') || (item !== "Digital Scan" && currentPage === 'home') 
+                  ? "opacity-100" : "opacity-60"
+                }`}
+              >
                 {item}
-              </a>
+              </button>
             ))}
             <a href="tel:7804330770" className="bg-[#1A1A1A] text-white px-6 py-2 text-sm font-medium rounded-full hover:bg-opacity-80 transition-all">
               (780) 433-0770
@@ -168,27 +188,46 @@ export default function App() {
             exit={{ opacity: 0, y: -20 }}
             className="fixed inset-0 z-40 bg-white flex flex-col items-center justify-center gap-8 md:hidden"
           >
-            {["Services", "About", "Gallery", "Contact"].map((item) => (
-              <a 
+            {["Services", "About", "Gallery", "Digital Scan", "Contact"].map((item) => (
+              <button 
                 key={item} 
-                href={`#${item.toLowerCase()}`} 
-                onClick={() => setIsMenuOpen(false)}
+                onClick={() => {
+                  setIsMenuOpen(false);
+                  if (item === "Digital Scan") {
+                    setCurrentPage('digital-scan');
+                    window.scrollTo(0, 0);
+                  } else {
+                    setCurrentPage('home');
+                    setTimeout(() => {
+                      const el = document.getElementById(item.toLowerCase());
+                      if (el) el.scrollIntoView({ behavior: 'smooth' });
+                    }, 100);
+                  }
+                }}
                 className="text-3xl font-light uppercase tracking-widest"
               >
                 {item}
-              </a>
+              </button>
             ))}
           </motion.div>
         )}
       </AnimatePresence>
 
-      {/* Hero Section */}
+      <AnimatePresence mode="wait">
+        {currentPage === 'home' ? (
+        <motion.div
+          key="home"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+        >
+          {/* Hero Section */}
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
         {/* Background Video/Image with Blur */}
         <div className="absolute inset-0 z-0">
           <div className="absolute inset-0 bg-black/30 z-10" />
           <img 
-            src="https://picsum.photos/seed/dentallab/1920/1080" 
+            src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&q=80&w=1920" 
             alt="Dental Lab Background" 
             className="w-full h-full object-cover blur-[4px] scale-105"
             referrerPolicy="no-referrer"
@@ -519,6 +558,230 @@ export default function App() {
           </div>
         </div>
       </section>
+        </motion.div>
+      ) : (
+        <motion.div
+          key="digital-scan"
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: -20 }}
+          transition={{ duration: 0.5 }}
+          className="pt-32"
+        >
+          {/* Digital Scan Hero */}
+          <section className="py-24 px-6 bg-white">
+            <div className="max-w-7xl mx-auto">
+              <div className="grid lg:grid-cols-2 gap-16 items-center">
+                <div>
+                  <span className="text-xs font-bold tracking-[0.4em] uppercase text-gray-400 mb-6 block">Digital Workflow</span>
+                  <h1 className="text-5xl md:text-7xl font-light leading-tight mb-8">
+                    Connecting Your Clinic <br />
+                    <span className="italic font-serif text-black">to Hive Dental Lab</span>
+                  </h1>
+                  <p className="text-xl text-gray-500 mb-10 leading-relaxed max-w-lg">
+                    Start sending your digital impressions directly to our lab in just a few steps. We support all major intraoral scanners.
+                  </p>
+                  <div className="flex gap-4">
+                    <button 
+                      onClick={() => {
+                        setCurrentPage('home');
+                        setTimeout(() => {
+                          const el = document.getElementById('contact');
+                          if (el) el.scrollIntoView({ behavior: 'smooth' });
+                        }, 100);
+                      }}
+                      className="bg-black text-white px-8 py-4 rounded-full text-sm font-bold uppercase tracking-widest hover:bg-opacity-80 transition-all"
+                    >
+                      Request Consultation
+                    </button>
+                    <a href="tel:7804330770" className="border border-gray-200 px-8 py-4 rounded-full text-sm font-bold uppercase tracking-widest hover:bg-gray-50 transition-all">
+                      Call Now
+                    </a>
+                  </div>
+                </div>
+                <div className="relative">
+                  <div className="aspect-video bg-gray-100 rounded-3xl overflow-hidden shadow-2xl">
+                    <img 
+                      src="https://cdn.dental-tribune.com/dti//0001/6ffec962/cmVzaXplLWNyb3Aodz0xOTIwO2g9MTA4MCk6c2hhcnBlbihsZXZlbD0wKTpvdXRwdXQoZm9ybWF0PWpwZWcp/up/dt/2024/09/DIM-Image-Primescan2.jpg?auto=format&fit=crop&q=80&w=1200" 
+                      alt="Digital Scanning" 
+                      className="w-full h-full object-cover"
+                      referrerPolicy="no-referrer"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Scanners Section */}
+          <section className="py-32 px-6 bg-[#F9F9F9]">
+            <div className="max-w-7xl mx-auto">
+              <div className="text-center mb-24">
+                <span className="text-xs font-bold tracking-[0.4em] uppercase text-black mb-4 block">Digital Scans</span>
+                <h2 className="text-4xl md:text-5xl font-light">Scanners We Accept</h2>
+                <p className="text-gray-500 mt-4">We are compatible with the following systems</p>
+              </div>
+
+              <div className="space-y-32">
+                {/* iTero */}
+                <div className="grid lg:grid-cols-2 gap-20 items-center">
+                  <div className="space-y-8">
+                    <div>
+                      <span className="text-xs font-bold text-black uppercase tracking-widest mb-2 block">iTero Scanner</span>
+                      <h3 className="text-3xl font-light">Option 1 — Quick Setup on Scanner</h3>
+                    </div>
+                    <ul className="space-y-6">
+                      {[
+                        "On your iTero scanner, select 'Find a Laboratory.'",
+                        "Search and connect with Hive Dental Lab using our Lab ID: 9293.",
+                        "Once connected, simply select Hive Dental Lab when sending your scans."
+                      ].map((step, i) => (
+                        <li key={i} className="flex gap-4">
+                          <CheckCircle2 className="w-6 h-6 text-black shrink-0" />
+                          <p className="text-gray-600 leading-relaxed">{step}</p>
+                        </li>
+                      ))}
+                    </ul>
+                    <a href="tel:7804330770" className="inline-block bg-black text-white px-8 py-3 rounded-lg text-sm font-bold uppercase tracking-widest hover:bg-gray-800 transition-all">
+                      Call Now
+                    </a>
+                  </div>
+                  <div className="rounded-3xl overflow-hidden shadow-xl">
+                    <img src="https://dentistry.co.uk/app/uploads/2025/04/align-april.jpg?auto=format&fit=crop&q=80&w=800" alt="iTero Setup" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+                  </div>
+                </div>
+
+                {/* 3Shape Trios */}
+                <div className="grid lg:grid-cols-2 gap-20 items-center">
+                  <div className="lg:order-2 space-y-8">
+                    <div>
+                      <span className="text-xs font-bold text-black uppercase tracking-widest mb-2 block">How to Connect to Hive</span>
+                      <h3 className="text-3xl font-light">Trios — 3Shape Connection</h3>
+                    </div>
+                    <div className="space-y-6">
+                      <p className="text-gray-600 font-bold">Option 1:</p>
+                      <ul className="space-y-4">
+                        {[
+                          "Open your 3Shape Communicate portal in your browser.",
+                          "Go to Connections.",
+                          "Search for and request a connection with Hive Dental Lab."
+                        ].map((step, i) => (
+                          <li key={i} className="flex gap-4">
+                            <CheckCircle2 className="w-5 h-5 text-black shrink-0" />
+                            <p className="text-gray-600 text-sm">{step}</p>
+                          </li>
+                        ))}
+                      </ul>
+                      <p className="text-gray-600 font-bold mt-4">Option 2:</p>
+                      <p className="text-gray-600 text-sm">Email us at <span className="text-black font-semibold underline">hivedental@gmail.com</span> or call (780) 433-0770. We'll send you a connection invite—just approve it to get started.</p>
+                    </div>
+                    <a href="tel:7804330770" className="inline-block bg-black text-white px-8 py-3 rounded-lg text-sm font-bold uppercase tracking-widest hover:bg-gray-800 transition-all">
+                      Call Now
+                    </a>
+                  </div>
+                  <div className="lg:order-1 rounded-3xl overflow-hidden shadow-xl">
+                    <img src="https://www.mackenziedentalcentre.com/uploads/upload/review-tooth.jpg?auto=format&fit=crop&q=80&w=800" alt="3Shape Setup" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+                  </div>
+                </div>
+
+                {/* Medit */}
+                <div className="grid lg:grid-cols-2 gap-20 items-center">
+                  <div className="space-y-8">
+                    <div>
+                      <span className="text-xs font-bold text-black uppercase tracking-widest mb-2 block">How to Connect to Hive</span>
+                      <h3 className="text-3xl font-light">Medit (Meditlink)</h3>
+                    </div>
+                    <ul className="space-y-4">
+                      {[
+                        "Log into Meditlink.",
+                        "Click Partner and enter Hive Dental Lab.",
+                        "Call or email us to let us know you've sent the request."
+                      ].map((step, i) => (
+                        <li key={i} className="flex gap-4">
+                          <CheckCircle2 className="w-5 h-5 text-black shrink-0" />
+                          <p className="text-gray-600 text-sm">{step}</p>
+                        </li>
+                      ))}
+                    </ul>
+                    <div className="p-6 bg-white rounded-2xl border border-gray-100">
+                      <p className="font-bold text-sm mb-4">To Send Cases:</p>
+                      <ul className="space-y-2 text-sm text-gray-500">
+                        <li>• After scanning, go to the Case Details page.</li>
+                        <li>• Click Order, fill out the form, and click OK.</li>
+                        <li>• Your order will show as Accepted, and then Shipped.</li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div className="rounded-3xl overflow-hidden shadow-xl">
+                    <img src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&q=80&w=800" alt="Medit Setup" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+                  </div>
+                </div>
+
+                {/* DS Core */}
+                <div className="grid lg:grid-cols-2 gap-20 items-center">
+                  <div className="lg:order-2 space-y-8">
+                    <div>
+                      <span className="text-xs font-bold text-black uppercase tracking-widest mb-2 block">Dentsply Sirona</span>
+                      <h3 className="text-3xl font-light">DS Core Connection</h3>
+                    </div>
+                    <ul className="space-y-4">
+                      {[
+                        "Log into your DS Core account.",
+                        "Navigate to 'Partners' or 'Laboratories'.",
+                        "Search for 'Hive Dental Lab' and send a connection request.",
+                        "Once accepted, you can send cases directly through the DS Core platform."
+                      ].map((step, i) => (
+                        <li key={i} className="flex gap-4">
+                          <CheckCircle2 className="w-5 h-5 text-black shrink-0" />
+                          <p className="text-gray-600 text-sm">{step}</p>
+                        </li>
+                      ))}
+                    </ul>
+                    <div className="p-6 bg-white rounded-2xl border border-gray-100">
+                      <p className="font-bold text-sm mb-4">Why DS Core?</p>
+                      <p className="text-sm text-gray-500 leading-relaxed">
+                        DS Core provides a seamless, cloud-based workflow for Dentsply Sirona users, ensuring high-speed data transfer and secure case management.
+                      </p>
+                    </div>
+                    <a href="tel:7804330770" className="inline-block bg-black text-white px-8 py-3 rounded-lg text-sm font-bold uppercase tracking-widest hover:bg-gray-800 transition-all">
+                      Call Now
+                    </a>
+                  </div>
+                  <div className="lg:order-1 rounded-3xl overflow-hidden shadow-xl">
+                    <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&q=80&w=800" alt="DS Core Setup" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </section>
+
+          {/* Help Section */}
+          <section className="py-32 px-6 bg-white">
+            <div className="max-w-7xl mx-auto">
+              <div className="bg-[#1A1A1A] text-white p-12 md:p-24 rounded-[3rem] relative overflow-hidden">
+                <div className="relative z-10 max-w-2xl mx-auto text-center">
+                  <span className="text-xs font-bold tracking-[0.4em] uppercase text-gray-400 mb-6 block">Support</span>
+                  <h2 className="text-4xl md:text-6xl font-light mb-8">Need Help?</h2>
+                  <p className="text-lg text-gray-400 mb-12 max-w-md mx-auto">We're available to assist you with scanner setup or any technical questions.</p>
+                  
+                  <div className="pt-12 border-t border-white/10">
+                    <a 
+                      href="mailto:hivedental@gmail.com" 
+                      className="text-2xl md:text-4xl font-light hover:text-gray-400 transition-colors break-all tracking-tight"
+                    >
+                      hivedental@gmail.com
+                    </a>
+                  </div>
+                </div>
+                {/* Decorative element */}
+                <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-white/5 to-transparent pointer-events-none" />
+              </div>
+            </div>
+          </section>
+        </motion.div>
+      )}
+      </AnimatePresence>
 
       {/* Footer */}
       <footer className="bg-[#1A1A1A] text-white py-24 px-6">
@@ -538,10 +801,73 @@ export default function App() {
             <div>
               <h4 className="font-bold uppercase tracking-widest text-xs mb-8">Navigation</h4>
               <ul className="space-y-4 text-gray-400 text-sm">
-                <li><a href="#services" className="hover:text-white transition-colors">Services</a></li>
-                <li><a href="#about" className="hover:text-white transition-colors">About</a></li>
-                <li><a href="#gallery" className="hover:text-white transition-colors">Gallery</a></li>
-                <li><a href="#contact" className="hover:text-white transition-colors">Contact</a></li>
+                <li>
+                  <button 
+                    onClick={() => {
+                      setCurrentPage('home');
+                      setTimeout(() => {
+                        const el = document.getElementById('services');
+                        if (el) el.scrollIntoView({ behavior: 'smooth' });
+                      }, 100);
+                    }}
+                    className="hover:text-white transition-colors"
+                  >
+                    Services
+                  </button>
+                </li>
+                <li>
+                  <button 
+                    onClick={() => {
+                      setCurrentPage('home');
+                      setTimeout(() => {
+                        const el = document.getElementById('about');
+                        if (el) el.scrollIntoView({ behavior: 'smooth' });
+                      }, 100);
+                    }}
+                    className="hover:text-white transition-colors"
+                  >
+                    About
+                  </button>
+                </li>
+                <li>
+                  <button 
+                    onClick={() => {
+                      setCurrentPage('home');
+                      setTimeout(() => {
+                        const el = document.getElementById('gallery');
+                        if (el) el.scrollIntoView({ behavior: 'smooth' });
+                      }, 100);
+                    }}
+                    className="hover:text-white transition-colors"
+                  >
+                    Gallery
+                  </button>
+                </li>
+                <li>
+                  <button 
+                    onClick={() => {
+                      setCurrentPage('digital-scan');
+                      window.scrollTo(0, 0);
+                    }}
+                    className="hover:text-white transition-colors"
+                  >
+                    Digital Scan
+                  </button>
+                </li>
+                <li>
+                  <button 
+                    onClick={() => {
+                      setCurrentPage('home');
+                      setTimeout(() => {
+                        const el = document.getElementById('contact');
+                        if (el) el.scrollIntoView({ behavior: 'smooth' });
+                      }, 100);
+                    }}
+                    className="hover:text-white transition-colors"
+                  >
+                    Contact
+                  </button>
+                </li>
               </ul>
             </div>
             <div>
