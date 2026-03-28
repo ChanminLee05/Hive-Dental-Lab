@@ -18,9 +18,18 @@ import {
   Mail,
   Instagram,
   Facebook,
-  CheckCircle2
+  CheckCircle2,
+  Users,
+  Camera
 } from "lucide-react";
 import { useState, useEffect, ReactNode, FormEvent } from "react";
+
+// Declare Calendly on window for TypeScript
+declare global {
+  interface Window {
+    Calendly: any;
+  }
+}
 
 // Types
 interface ServiceCategory {
@@ -41,7 +50,13 @@ const serviceCategories: ServiceCategory[] = [
   { 
     name: "Fixed Restorations", 
     description: "Premium aesthetic and functional crowns and bridges using the latest materials.",
-    items: ["Zirconia (Monolithic/Layered)", "Emax (Lithium Disilicate)", "PFM & PFG", "Full Gold & Metal Crowns"],
+    items: ["Zirconia (Monolithic/Layered)", "Emax (Lithium Disilicate)", "Inlays & Onlays", "PFM & PFG", "Full Gold & Metal Crowns"],
+    icon: <ShieldCheck className="w-8 h-8" />
+  },
+  { 
+    name: "Aesthetic & Planning", 
+    description: "Meticulous design for the perfect smile transformation.",
+    items: ["Veneers", "Diagnostic Wax-up", "Custom Staining", "Smile Design"],
     icon: <Sparkles className="w-8 h-8" />
   },
   { 
@@ -51,30 +66,24 @@ const serviceCategories: ServiceCategory[] = [
     icon: <Award className="w-8 h-8" />
   },
   { 
-    name: "Removables & Repairs", 
-    description: "Durable solutions for partials and urgent laboratory repairs.",
-    items: ["Denture Repair", "Relines & Rebasing", "Cast Partial Frameworks", "Acrylic Partials"],
-    icon: <ShieldCheck className="w-8 h-8" />
-  },
-  { 
     name: "Orthodontics & Protection", 
     description: "Custom-fit appliances designed for patient comfort and protection.",
-    items: ["Clear Retainers", "Night Guards (Hard/Soft)", "Sports Guards", "Splints"],
+    items: ["Space Maintainers", "Night Guards (Hard/Soft)", "Sports Guards", "Splints"],
     icon: <ShieldCheck className="w-8 h-8" />
   },
 ];
 
 const galleryItems: GalleryItem[] = [
-  { id: 1, title: "Anterior Zirconia", category: "Aesthetic", imageUrl: "https://images.unsplash.com/photo-1588776814546-1ffce47267a5?auto=format&fit=crop&q=80&w=800" },
-  { id: 2, title: "Emax Veneers", category: "Aesthetic", imageUrl: "https://images.unsplash.com/photo-1598256989800-fe5f95da9787?auto=format&fit=crop&q=80&w=800" },
-  { id: 3, title: "PFM Restoration", category: "Fixed", imageUrl: "https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&q=80&w=800" },
-  { id: 4, title: "Implant Solutions", category: "Implant", imageUrl: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&q=80&w=800" },
-  { id: 5, title: "Posterior Zirconia", category: "Fixed", imageUrl: "https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&q=80&w=800" },
-  { id: 6, title: "Full Gold Crown", category: "Fixed", imageUrl: "https://images.unsplash.com/photo-1598256989800-fe5f95da9787?auto=format&fit=crop&q=80&w=800" },
+  { id: 1, title: "Anterior Zirconia", category: "Aesthetic", imageUrl: "https://images.unsplash.com/photo-1670250492416-570b5b7343b1?auto=format&fit=crop&q=80&w=800" },
+  { id: 2, title: "Emax Veneers", category: "Aesthetic", imageUrl: "https://images.unsplash.com/photo-1690167687106-180b0ea1d813?auto=format&fit=crop&q=80&w=800" },
+  { id: 3, title: "PFM Restoration", category: "Fixed", imageUrl: "https://drformica.com/wp-content/uploads/2019/05/shutterstock_211851322-min.jpg?auto=format&fit=crop&q=80&w=800" },
+  { id: 4, title: "Implant Solutions", category: "Implant", imageUrl: "https://images.pexels.com/photos/6502305/pexels-photo-6502305.jpeg/?auto=format&fit=crop&q=80&w=800" },
+  { id: 5, title: "Posterior Zirconia", category: "Fixed", imageUrl: "https://backerdentallab.com/wp-content/uploads/2018/05/Z-max-molar-1.jpg?auto=format&fit=crop&q=80&w=800" },
+  { id: 6, title: "Full Gold Crown", category: "Fixed", imageUrl: "https://www.dmsdentistry.com/wp-content/uploads/2019/03/goldcrown1.jpg?auto=format&fit=crop&q=80&w=800" },
 ];
 
 export default function App() {
-  const [currentPage, setCurrentPage] = useState<'home' | 'digital-scan'>('home');
+  const [currentPage, setCurrentPage] = useState<'home' | 'digital-scan' | 'custom-shading'>('home');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeCategory, setActiveCategory] = useState("All");
@@ -124,6 +133,15 @@ export default function App() {
     ? galleryItems 
     : galleryItems.filter(item => item.category === activeCategory);
 
+  const openCalendly = () => {
+    if (window.Calendly) {
+      window.Calendly.initPopupWidget({ url: 'https://calendly.com/lee-chanmin1' });
+    } else {
+      // Fallback if script not loaded
+      window.open('https://calendly.com/lee-chanmin1', '_blank');
+    }
+  };
+
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener("scroll", handleScroll);
@@ -144,12 +162,15 @@ export default function App() {
 
           {/* Desktop Nav */}
           <div className="hidden md:flex items-center gap-8">
-            {["Services", "About", "Gallery", "Digital Scan", "Contact"].map((item) => (
+            {["Services", "About", "Gallery", "Digital Scan", "Custom Shading", "Contact"].map((item) => (
               <button 
                 key={item} 
                 onClick={() => {
                   if (item === "Digital Scan") {
                     setCurrentPage('digital-scan');
+                    window.scrollTo(0, 0);
+                  } else if (item === "Custom Shading") {
+                    setCurrentPage('custom-shading');
                     window.scrollTo(0, 0);
                   } else {
                     setCurrentPage('home');
@@ -159,10 +180,7 @@ export default function App() {
                     }, 100);
                   }
                 }}
-                className={`text-sm font-medium hover:opacity-50 transition-opacity uppercase tracking-widest ${
-                  (item === "Digital Scan" && currentPage === 'digital-scan') || (item !== "Digital Scan" && currentPage === 'home') 
-                  ? "opacity-100" : "opacity-60"
-                }`}
+                className="text-sm font-medium hover:opacity-50 transition-opacity uppercase tracking-widest opacity-100"
               >
                 {item}
               </button>
@@ -188,13 +206,16 @@ export default function App() {
             exit={{ opacity: 0, y: -20 }}
             className="fixed inset-0 z-40 bg-white flex flex-col items-center justify-center gap-8 md:hidden"
           >
-            {["Services", "About", "Gallery", "Digital Scan", "Contact"].map((item) => (
+            {["Services", "About", "Gallery", "Digital Scan", "Custom Shading", "Contact"].map((item) => (
               <button 
                 key={item} 
                 onClick={() => {
                   setIsMenuOpen(false);
                   if (item === "Digital Scan") {
                     setCurrentPage('digital-scan');
+                    window.scrollTo(0, 0);
+                  } else if (item === "Custom Shading") {
+                    setCurrentPage('custom-shading');
                     window.scrollTo(0, 0);
                   } else {
                     setCurrentPage('home');
@@ -289,41 +310,63 @@ export default function App() {
       </section>
 
       {/* Services Section */}
-      <section id="services" className="py-32 px-6 bg-[#F9F9F9]">
-        <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
-            <div className="max-w-2xl">
-              <span className="text-xs font-bold tracking-[0.4em] uppercase text-gray-400 mb-4 block">Our Expertise</span>
-              <h2 className="text-4xl md:text-6xl font-light leading-tight">Comprehensive Restorative Solutions</h2>
+      <section id="services" className="py-32 px-6 bg-[#F5F2ED] relative overflow-hidden">
+        {/* Subtle Texture/Pattern */}
+        <div className="absolute inset-0 opacity-[0.03] pointer-events-none">
+          <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+                <path d="M 40 0 L 0 0 0 40" fill="none" stroke="black" strokeWidth="1"/>
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#grid)" />
+          </svg>
+        </div>
+
+        <div className="max-w-7xl mx-auto relative z-10">
+          <div className="flex flex-col lg:flex-row justify-between items-start mb-24 gap-12">
+            <div className="max-w-3xl">
+              <span className="text-xs font-bold tracking-[0.5em] uppercase text-gray-400 mb-6 block">Our Expertise</span>
+              <h2 className="text-5xl md:text-8xl font-light leading-[0.9] tracking-tighter text-[#1A1A1A] mb-8">
+                Precision <br />
+                <span className="italic font-serif text-[#5A5A40]">Craftsmanship</span>
+              </h2>
             </div>
-            <p className="text-gray-500 max-w-sm text-lg leading-relaxed">
-              We combine traditional craftsmanship with digital precision to deliver the highest quality dental restorations.
-            </p>
+            <div className="max-w-md pt-4">
+              <p className="text-gray-600 text-xl leading-relaxed font-light">
+                We bridge the gap between clinical requirements and aesthetic perfection through a meticulous digital-analog workflow.
+              </p>
+            </div>
           </div>
 
           <div className="grid md:grid-cols-2 gap-8">
             {serviceCategories.map((category, idx) => (
               <motion.div 
                 key={idx} 
-                whileHover={{ y: -5 }}
-                className="bg-white p-10 md:p-16 rounded-[2.5rem] shadow-sm border border-gray-100 flex flex-col h-full"
+                whileHover={{ y: -8 }}
+                className="bg-white p-12 md:p-16 rounded-[2.5rem] shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-[#E5E5E5] group transition-all duration-500"
               >
-                <div className="mb-10 text-black">
-                  {category.icon}
+                <div className="flex justify-between items-start mb-12">
+                  <div className="text-[#1A1A1A] group-hover:scale-110 transition-transform duration-500 origin-left">
+                    {category.icon}
+                  </div>
+                  <span className="font-serif italic text-4xl text-[#E5E5E5] group-hover:text-[#5A5A40] transition-colors duration-500">
+                    0{idx + 1}
+                  </span>
                 </div>
-                <h3 className="text-3xl md:text-4xl font-light mb-6">{category.name}</h3>
-                <p className="text-gray-500 mb-10 leading-relaxed text-lg">
+                
+                <h3 className="text-3xl md:text-4xl font-light mb-8 tracking-tight text-[#1A1A1A]">{category.name}</h3>
+                <p className="text-gray-500 mb-12 leading-relaxed text-lg font-light">
                   {category.description}
                 </p>
-                <div className="mt-auto">
-                  <ul className="grid grid-cols-1 sm:grid-cols-2 gap-y-4 gap-x-8">
-                    {category.items.map((item, i) => (
-                      <li key={i} className="flex items-center gap-3 text-sm font-medium text-gray-700">
-                        <div className="w-1.5 h-1.5 bg-black rounded-full shrink-0" />
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
+                
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {category.items.map((item, i) => (
+                    <div key={i} className="flex items-center gap-3 text-sm font-medium text-gray-400 group-hover:text-[#1A1A1A] transition-colors">
+                      <div className="w-1 h-1 bg-[#5A5A40] rounded-full opacity-40 group-hover:opacity-100 transition-opacity" />
+                      {item}
+                    </div>
+                  ))}
                 </div>
               </motion.div>
             ))}
@@ -481,6 +524,16 @@ export default function App() {
                     <p className="text-lg">Mon — Fri: 8:00 AM - 4:30 PM</p>
                   </div>
                 </div>
+
+                <div className="flex items-start gap-6">
+                  <div className="w-12 h-12 bg-gray-50 rounded-full flex items-center justify-center shrink-0">
+                    <Mail className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <h4 className="font-medium mb-1 uppercase tracking-widest text-xs text-gray-400">Email</h4>
+                    <a href="mailto:hivedental@gmail.com" className="text-lg hover:underline">hivedental@gmail.com</a>
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -559,7 +612,7 @@ export default function App() {
         </div>
       </section>
         </motion.div>
-      ) : (
+      ) : currentPage === 'digital-scan' ? (
         <motion.div
           key="digital-scan"
           initial={{ opacity: 0, x: 20 }}
@@ -780,6 +833,136 @@ export default function App() {
             </div>
           </section>
         </motion.div>
+        ) : (
+        <motion.div
+          key="custom-shading"
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: -20 }}
+          transition={{ duration: 0.5 }}
+          className="pt-32"
+        >
+          {/* Custom Shading Hero */}
+          <section className="py-24 px-6 bg-white">
+            <div className="max-w-7xl mx-auto">
+              <div className="grid lg:grid-cols-2 gap-16 items-center">
+                <div>
+                  <span className="text-xs font-bold tracking-[0.4em] uppercase text-gray-400 mb-6 block">Aesthetic Excellence</span>
+                  <h1 className="text-5xl md:text-7xl font-light leading-tight mb-8">
+                    Custom Shading <br />
+                    <span className="italic font-serif text-black">& Staining</span>
+                  </h1>
+                  <p className="text-xl text-gray-500 mb-10 leading-relaxed max-w-lg">
+                    Achieve the perfect match for your patients with our personalized custom shading services. We offer both in-lab appointments and on-site clinic visits for precise color matching and characterization.
+                  </p>
+                  <div className="flex flex-col sm:flex-row gap-4">
+                    <button 
+                      onClick={openCalendly}
+                      className="bg-black text-white px-8 py-4 rounded-full text-sm font-bold uppercase tracking-widest hover:bg-opacity-80 transition-all text-center"
+                    >
+                      Book Appointment
+                    </button>
+                    <a href="tel:7804330770" className="border border-gray-200 px-8 py-4 rounded-full text-sm font-bold uppercase tracking-widest hover:bg-gray-50 transition-all text-center">
+                      Call to Schedule
+                    </a>
+                  </div>
+                </div>
+                <div className="relative">
+                  <div className="aspect-[4/5] bg-gray-100 rounded-3xl overflow-hidden shadow-2xl">
+                    <img 
+                      src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&q=80&w=1200" 
+                      alt="Custom Shading Process" 
+                      className="w-full h-full object-cover"
+                      referrerPolicy="no-referrer"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Process Section */}
+          <section className="py-32 px-6 bg-[#F9F9F9]">
+            <div className="max-w-7xl mx-auto">
+              <div className="text-center mb-24">
+                <span className="text-xs font-bold tracking-[0.4em] uppercase text-black mb-4 block">The Experience</span>
+                <h2 className="text-4xl md:text-5xl font-light">What to Expect</h2>
+                <p className="text-gray-500 mt-4">A seamless process for clinicians and patients</p>
+              </div>
+
+              <div className="grid md:grid-cols-3 gap-12">
+                {[
+                  {
+                    title: "Consultation",
+                    desc: "We discuss the patient's aesthetic goals and any specific characterization required for the restoration.",
+                    icon: <Users className="w-8 h-8" />
+                  },
+                  {
+                    title: "Color Matching",
+                    desc: "Using advanced shade guides and digital photography, we capture the exact nuances of the surrounding dentition.",
+                    icon: <Camera className="w-8 h-8" />
+                  },
+                  {
+                    title: "Final Staining",
+                    desc: "Our master technicians apply custom stains and glazes to ensure a lifelike, natural integration.",
+                    icon: <Sparkles className="w-8 h-8" />
+                  }
+                ].map((step, i) => (
+                  <div key={i} className="p-10 bg-white rounded-3xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+                    <div className="mb-6 text-black">{step.icon}</div>
+                    <h3 className="text-xl font-bold mb-4 uppercase tracking-wider">{step.title}</h3>
+                    <p className="text-gray-500 leading-relaxed">{step.desc}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          {/* Appointment Options Section */}
+          <section className="py-32 px-6 bg-white">
+            <div className="max-w-7xl mx-auto">
+              <div className="grid md:grid-cols-2 gap-12">
+                {/* In-Lab Option */}
+                <div className="bg-[#1A1A1A] text-white p-12 md:p-16 rounded-[3rem] relative overflow-hidden flex flex-col justify-between">
+                  <div className="relative z-10">
+                    <span className="text-xs font-bold tracking-[0.4em] uppercase text-gray-400 mb-6 block">In-Lab Visit</span>
+                    <h2 className="text-3xl md:text-5xl font-light mb-8">In-Lab Appointments</h2>
+                    <p className="text-lg text-gray-400 mb-12">Our lab is conveniently located in Edmonton. Patients can visit us for a professional shade match in a controlled environment.</p>
+                  </div>
+                  <div className="pt-12 border-t border-white/10 mt-auto">
+                    <p className="text-xl font-light mb-4">Hive Dental Lab</p>
+                    <p className="text-gray-400 mb-8">Edmonton, AB</p>
+                    <button 
+                      onClick={openCalendly}
+                      className="inline-block bg-white text-black px-10 py-4 rounded-full text-sm font-bold uppercase tracking-widest hover:bg-gray-200 transition-all"
+                    >
+                      Book In-Lab Slot
+                    </button>
+                  </div>
+                </div>
+
+                {/* On-Site Option */}
+                <div className="bg-[#F9F9F9] text-black p-12 md:p-16 rounded-[3rem] relative overflow-hidden flex flex-col justify-between border border-gray-100">
+                  <div className="relative z-10">
+                    <span className="text-xs font-bold tracking-[0.4em] uppercase text-gray-400 mb-6 block">Mobile Service</span>
+                    <h2 className="text-3xl md:text-5xl font-light mb-8">On-Site Clinic Visits</h2>
+                    <p className="text-lg text-gray-500 mb-12">We bring our expertise to your clinic. Our technicians can visit your office to perform custom shading directly in the chairside setting.</p>
+                  </div>
+                  <div className="pt-12 border-t border-gray-200 mt-auto">
+                    <p className="text-xl font-light mb-4">Your Dental Clinic</p>
+                    <p className="text-gray-500 mb-8">Edmonton & Surrounding Areas</p>
+                    <a 
+                      href="tel:7804330770"
+                      className="inline-block bg-black text-white px-10 py-4 rounded-full text-sm font-bold uppercase tracking-widest hover:bg-opacity-80 transition-all"
+                    >
+                      Call to Arrange Visit
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </motion.div>
       )}
       </AnimatePresence>
 
@@ -857,6 +1040,17 @@ export default function App() {
                 <li>
                   <button 
                     onClick={() => {
+                      setCurrentPage('custom-shading');
+                      window.scrollTo(0, 0);
+                    }}
+                    className="hover:text-white transition-colors"
+                  >
+                    Custom Shading
+                  </button>
+                </li>
+                <li>
+                  <button 
+                    onClick={() => {
                       setCurrentPage('home');
                       setTimeout(() => {
                         const el = document.getElementById('contact');
@@ -873,13 +1067,18 @@ export default function App() {
             <div>
               <h4 className="font-bold uppercase tracking-widest text-xs mb-8">Social</h4>
               <div className="flex gap-4">
-                <a href="#" className="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors">
+                <a 
+                  href="https://www.instagram.com/hivedental/" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors"
+                >
                   <Instagram className="w-4 h-4" />
                 </a>
-                <a href="#" className="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors">
-                  <Facebook className="w-4 h-4" />
-                </a>
-                <a href="#" className="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors">
+                <a 
+                  href="mailto:hivedental@gmail.com" 
+                  className="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors"
+                >
                   <Mail className="w-4 h-4" />
                 </a>
               </div>
