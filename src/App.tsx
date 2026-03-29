@@ -9,6 +9,7 @@ import {
   MapPin, 
   Clock, 
   ChevronRight, 
+  ArrowLeft,
   Menu, 
   X, 
   Award, 
@@ -44,6 +45,7 @@ interface GalleryItem {
   title: string;
   category: string;
   imageUrl: string;
+  album?: string[];
 }
 
 const serviceCategories: ServiceCategory[] = [
@@ -74,12 +76,79 @@ const serviceCategories: ServiceCategory[] = [
 ];
 
 const galleryItems: GalleryItem[] = [
-  { id: 1, title: "Anterior Zirconia", category: "Aesthetic", imageUrl: "https://images.unsplash.com/photo-1670250492416-570b5b7343b1?auto=format&fit=crop&q=80&w=800" },
-  { id: 2, title: "Emax Veneers", category: "Aesthetic", imageUrl: "https://images.unsplash.com/photo-1690167687106-180b0ea1d813?auto=format&fit=crop&q=80&w=800" },
-  { id: 3, title: "PFM Restoration", category: "Fixed", imageUrl: "https://drformica.com/wp-content/uploads/2019/05/shutterstock_211851322-min.jpg?auto=format&fit=crop&q=80&w=800" },
-  { id: 4, title: "Implant Solutions", category: "Implant", imageUrl: "https://images.pexels.com/photos/6502305/pexels-photo-6502305.jpeg/?auto=format&fit=crop&q=80&w=800" },
-  { id: 5, title: "Posterior Zirconia", category: "Fixed", imageUrl: "https://backerdentallab.com/wp-content/uploads/2018/05/Z-max-molar-1.jpg?auto=format&fit=crop&q=80&w=800" },
-  { id: 6, title: "Full Gold Crown", category: "Fixed", imageUrl: "https://www.dmsdentistry.com/wp-content/uploads/2019/03/goldcrown1.jpg?auto=format&fit=crop&q=80&w=800" },
+  { 
+    id: 1, 
+    title: "Anterior Zirconia", 
+    category: "Aesthetic", 
+    imageUrl: "https://images.unsplash.com/photo-1670250492416-570b5b7343b1?auto=format&fit=crop&q=80&w=800",
+    album: [
+      "https://images.unsplash.com/photo-1670250492416-570b5b7343b1?auto=format&fit=crop&q=80&w=800",
+      "https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&q=80&w=800",
+      "https://images.unsplash.com/photo-1598256989800-fe5f95da9787?auto=format&fit=crop&q=80&w=800",
+      "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&q=80&w=800",
+      "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&q=80&w=800",
+      "https://images.unsplash.com/photo-1445510491599-c391e8046a68?auto=format&fit=crop&q=80&w=800"
+    ]
+  },
+  { 
+    id: 2, 
+    title: "Emax Veneers", 
+    category: "Aesthetic", 
+    imageUrl: "https://images.unsplash.com/photo-1690167687106-180b0ea1d813?auto=format&fit=crop&q=80&w=800",
+    album: [
+      "https://images.unsplash.com/photo-1690167687106-180b0ea1d813?auto=format&fit=crop&q=80&w=800",
+      "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&q=80&w=800",
+      "https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&q=80&w=800",
+      "https://images.unsplash.com/photo-1616391182219-e080b4d1043a?auto=format&fit=crop&q=80&w=800"
+    ]
+  },
+  { 
+    id: 3, 
+    title: "PFM Restoration", 
+    category: "Fixed", 
+    imageUrl: "https://res.cloudinary.com/dziihg83k/image/upload/v1774812501/PFM_mw7t1y.jpg?auto=format&fit=crop&q=80&w=800",
+    album: [
+      "https://res.cloudinary.com/dziihg83k/image/upload/v1774812501/PFM_mw7t1y.jpg?auto=format&fit=crop&q=80&w=800",
+      "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&q=80&w=800",
+      "https://images.unsplash.com/photo-1584132967334-10e028bd69f7?auto=format&fit=crop&q=80&w=800",
+      "https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&q=80&w=800"
+    ]
+  },
+  { 
+    id: 4, 
+    title: "Implant Solutions", 
+    category: "Implant", 
+    imageUrl: "https://res.cloudinary.com/dziihg83k/image/upload/v1774812343/Implant_qvv4hs.png?auto=format&fit=crop&q=80&w=800",
+    album: [
+      "https://res.cloudinary.com/dziihg83k/image/upload/v1774812343/Implant_qvv4hs.png?auto=format&fit=crop&q=80&w=800",
+      "https://images.unsplash.com/photo-1609840114035-3c981b782dfe?auto=format&fit=crop&q=80&w=800",
+      "https://images.unsplash.com/photo-1598256989590-295c3a5dd286?auto=format&fit=crop&q=80&w=800",
+      "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&q=80&w=800"
+    ]
+  },
+  { 
+    id: 5, 
+    title: "Posterior Zirconia", 
+    category: "Fixed", 
+    imageUrl: "https://backerdentallab.com/wp-content/uploads/2018/05/Z-max-molar-1.jpg?auto=format&fit=crop&q=80&w=800",
+    album: [
+      "https://backerdentallab.com/wp-content/uploads/2018/05/Z-max-molar-1.jpg?auto=format&fit=crop&q=80&w=800",
+      "https://res.cloudinary.com/dziihg83k/image/upload/v1774815607/36_daoltr.jpg?auto=format&fit=crop&q=80&w=800",
+      "https://res.cloudinary.com/dziihg83k/image/upload/v1774815615/35_c28s5n.png?auto=format&fit=crop&q=80&w=800",
+      "https://images.unsplash.com/photo-1445510491599-c391e8046a68?auto=format&fit=crop&q=80&w=800"
+    ]
+  },
+  { 
+    id: 6, 
+    title: "Full Gold Crown", 
+    category: "Fixed", 
+    imageUrl: "https://www.dmsdentistry.com/wp-content/uploads/2019/03/goldcrown1.jpg?auto=format&fit=crop&q=80&w=800",
+    album: [
+      "https://www.dmsdentistry.com/wp-content/uploads/2019/03/goldcrown1.jpg?auto=format&fit=crop&q=80&w=800",
+      "https://images.unsplash.com/photo-1588776814222-2608d5165c6b?auto=format&fit=crop&q=80&w=800",
+      "https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&q=80&w=800"
+    ]
+  },
 ];
 
 export default function App() {
@@ -87,6 +156,8 @@ export default function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeCategory, setActiveCategory] = useState("All");
+  const [selectedGalleryItem, setSelectedGalleryItem] = useState<GalleryItem | null>(null);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -440,42 +511,100 @@ export default function App() {
             </div>
           </div>
 
-          <motion.div 
-            layout
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16"
-          >
-            <AnimatePresence mode="popLayout">
-              {filteredItems.map((item) => (
-                <motion.div 
-                  key={item.id}
-                  layout
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.9 }}
-                  transition={{ duration: 0.5 }}
-                  whileHover={{ y: -10 }}
-                  className="group cursor-pointer"
-                >
-                  <div className="relative aspect-[4/5] bg-gray-50 overflow-hidden mb-8">
-                    <img 
-                      src={item.imageUrl} 
-                      alt={item.title} 
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000"
-                      referrerPolicy="no-referrer"
-                    />
-                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors duration-500" />
+          <AnimatePresence mode="wait">
+            {!selectedGalleryItem ? (
+              <motion.div 
+                key="grid"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.5 }}
+              >
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16">
+                  {filteredItems.map((item) => (
+                    <motion.div 
+                      key={item.id}
+                      layout
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.9 }}
+                      transition={{ duration: 0.5 }}
+                      whileHover={{ y: -10 }}
+                      className="group cursor-pointer"
+                      onClick={() => {
+                        setSelectedGalleryItem(item);
+                        const el = document.getElementById('gallery');
+                        if (el) el.scrollIntoView({ behavior: 'smooth' });
+                      }}
+                    >
+                      <div className="relative aspect-[4/5] bg-gray-50 overflow-hidden mb-8">
+                        <img 
+                          src={item.imageUrl} 
+                          alt={item.title} 
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000"
+                          referrerPolicy="no-referrer"
+                        />
+                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors duration-500" />
+                      </div>
+                      <div className="space-y-3">
+                        <div className="flex items-center gap-3">
+                          <div className="h-[1px] w-8 bg-gray-200" />
+                          <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-gray-400">{item.category}</p>
+                        </div>
+                        <h4 className="text-2xl font-light tracking-tight">{item.title}</h4>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              </motion.div>
+            ) : (
+              <motion.div 
+                key="album"
+                initial={{ opacity: 0, x: 50 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -50 }}
+                transition={{ duration: 0.5 }}
+                className="space-y-16"
+              >
+                <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
+                  <button 
+                    onClick={() => setSelectedGalleryItem(null)}
+                    className="flex items-center gap-3 text-xs font-bold uppercase tracking-[0.3em] hover:opacity-50 transition-all"
+                  >
+                    <ArrowLeft className="w-4 h-4" />
+                    Back to Portfolio
+                  </button>
+                  <div className="md:text-right">
+                    <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-gray-400 mb-2">{selectedGalleryItem.category}</p>
+                    <h3 className="text-4xl font-light tracking-tight">{selectedGalleryItem.title}</h3>
                   </div>
-                  <div className="space-y-3">
-                    <div className="flex items-center gap-3">
-                      <div className="h-[1px] w-8 bg-gray-200" />
-                      <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-gray-400">{item.category}</p>
-                    </div>
-                    <h4 className="text-2xl font-light tracking-tight">{item.title}</h4>
-                  </div>
-                </motion.div>
-              ))}
-            </AnimatePresence>
-          </motion.div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                  {selectedGalleryItem.album?.map((img, idx) => (
+                    <motion.div 
+                      key={idx}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: idx * 0.1 }}
+                      className="aspect-[4/5] bg-gray-50 overflow-hidden cursor-pointer group"
+                      onClick={() => setSelectedImage(img)}
+                    >
+                      <img 
+                        src={img} 
+                        alt={`${selectedGalleryItem.title} ${idx + 1}`} 
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000"
+                        referrerPolicy="no-referrer"
+                      />
+                      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-500 flex items-center justify-center">
+                        <Camera className="w-6 h-6 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
           
           <div className="mt-32 text-center">
             <button className="group flex items-center gap-4 mx-auto text-sm font-bold uppercase tracking-[0.3em] hover:opacity-50 transition-all">
@@ -1093,6 +1222,41 @@ export default function App() {
           </div>
         </div>
       </footer>
+
+      {/* Lightbox */}
+      <AnimatePresence>
+        {selectedImage && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setSelectedImage(null)}
+            className="fixed inset-0 z-[100] bg-black/95 flex items-center justify-center p-4 md:p-12 cursor-zoom-out"
+          >
+            <motion.button
+              initial={{ opacity: 0, scale: 0.5 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className="absolute top-8 right-8 text-white hover:opacity-50 transition-opacity z-10"
+              onClick={(e) => {
+                e.stopPropagation();
+                setSelectedImage(null);
+              }}
+            >
+              <X className="w-8 h-8" />
+            </motion.button>
+            <motion.img
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 20 }}
+              src={selectedImage}
+              alt="Enlarged view"
+              className="max-w-full max-h-full object-contain shadow-2xl"
+              referrerPolicy="no-referrer"
+              onClick={(e) => e.stopPropagation()}
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
