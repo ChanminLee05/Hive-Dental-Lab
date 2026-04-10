@@ -58,7 +58,7 @@ const serviceCategories: ServiceCategory[] = [
   { 
     name: "Aesthetic & Planning", 
     description: "Meticulous design for the perfect smile transformation.",
-    items: ["Veneers", "Diagnostic Wax-up", "Custom Staining", "Smile Design"],
+    items: ["Veneers", "Diagnostic Wax-up", "Custom Shading", "Smile Design"],
     icon: <Sparkles className="w-8 h-8" />
   },
   { 
@@ -224,11 +224,14 @@ export default function App() {
       {/* Navigation */}
       <nav className={`fixed w-full z-50 transition-all duration-500 ${scrolled ? "bg-white/80 backdrop-blur-md py-4 shadow-sm" : "bg-transparent py-6"}`}>
         <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
-          <div className="flex items-center gap-2">
-            <div className="w-10 h-10 bg-[#1A1A1A] flex items-center justify-center rounded-sm">
-              <span className="text-white font-bold text-xl">H</span>
-            </div>
-            <span className="text-xl font-semibold tracking-tight uppercase">Hive Dental Lab</span>
+          <div className="flex items-center gap-3">
+            <img 
+              src="https://res.cloudinary.com/dziihg83k/image/upload/v1775797389/logo-removebg-preview_ilfrbw.png" 
+              alt="Hive Dental Lab Logo" 
+              className="w-10 h-10 object-contain"
+              referrerPolicy="no-referrer"
+            />
+            <span className="text-xl font-semibold tracking-tight uppercase">HIVE DENTAL LAB</span>
           </div>
 
           {/* Desktop Nav */}
@@ -815,7 +818,7 @@ export default function App() {
                     <ul className="space-y-6">
                       {[
                         "On your iTero scanner, select 'Find a Laboratory.'",
-                        "Search and connect with Hive Dental Lab using our Lab ID: 9293.",
+                        "Search and connect with Hive Dental Lab using our Lab ID: 144030.",
                         "Once connected, simply select Hive Dental Lab when sending your scans."
                       ].map((step, i) => (
                         <li key={i} className="flex gap-4">
@@ -972,76 +975,101 @@ export default function App() {
           className="pt-32"
         >
           {/* Custom Shading Hero */}
-          <section className="py-24 px-6 bg-white">
-            <div className="max-w-7xl mx-auto">
+          <section className="py-24 px-6 bg-white relative overflow-hidden">
+            {/* Background Accent */}
+            <div className="absolute top-0 right-0 w-1/3 h-full bg-[#F9F9F9] -skew-x-12 translate-x-1/2 pointer-events-none" />
+            
+            <div className="max-w-7xl mx-auto relative z-10">
               <div className="grid lg:grid-cols-2 gap-16 items-center">
-                <div>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                >
                   <span className="text-xs font-bold tracking-[0.4em] uppercase text-gray-400 mb-6 block">Aesthetic Excellence</span>
-                  <h1 className="text-5xl md:text-7xl font-light leading-tight mb-8">
-                    Custom Shading <br />
-                    <span className="italic font-serif text-black">& Staining</span>
+                  <h1 className="text-5xl md:text-8xl font-light leading-[0.9] tracking-tighter mb-8">
+                    Custom <br />
+                    <span className="italic font-serif text-[#5A5A40]">Shading</span>
                   </h1>
-                  <p className="text-xl text-gray-500 mb-10 leading-relaxed max-w-lg">
-                    Achieve the perfect match for your patients with our personalized custom shading services. We offer both in-lab appointments and on-site clinic visits for precise color matching and characterization.
+                  <p className="text-xl text-gray-500 mb-10 leading-relaxed max-w-lg font-light">
+                    Achieve an undetectable match with our personalized custom shading services. We bridge the gap between clinical photography and real-world lighting for a perfect restoration.
                   </p>
-                  <div className="flex flex-col sm:flex-row gap-4">
+                  <div className="flex flex-col sm:flex-row gap-6">
                     <button 
                       onClick={openCalendly}
-                      className="bg-black text-white px-8 py-4 rounded-full text-sm font-bold uppercase tracking-widest hover:bg-opacity-80 transition-all text-center"
+                      className="bg-black text-white px-10 py-5 rounded-full text-sm font-bold uppercase tracking-widest hover:bg-opacity-80 transition-all text-center shadow-lg shadow-black/10"
                     >
                       Book Appointment
                     </button>
-                    <a href="tel:7804330770" className="border border-gray-200 px-8 py-4 rounded-full text-sm font-bold uppercase tracking-widest hover:bg-gray-50 transition-all text-center">
+                    <a href="tel:7804330770" className="group flex items-center justify-center gap-3 px-10 py-5 rounded-full text-sm font-bold uppercase tracking-widest border border-gray-200 hover:bg-gray-50 transition-all">
+                      <Phone className="w-4 h-4" />
                       Call to Schedule
                     </a>
                   </div>
-                </div>
-                <div className="relative">
-                  <div className="aspect-[4/5] bg-gray-100 rounded-3xl overflow-hidden shadow-2xl">
+                </motion.div>
+                <motion.div 
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  className="relative"
+                >
+                  <div className="aspect-[4/5] bg-gray-100 rounded-[3rem] overflow-hidden shadow-2xl relative">
                     <img 
                       src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&q=80&w=1200" 
                       alt="Custom Shading Process" 
                       className="w-full h-full object-cover"
                       referrerPolicy="no-referrer"
                     />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
                   </div>
-                </div>
+                </motion.div>
               </div>
             </div>
           </section>
 
           {/* Process Section */}
-          <section className="py-32 px-6 bg-[#F9F9F9]">
+          <section className="py-32 px-6 bg-[#F5F2ED]">
             <div className="max-w-7xl mx-auto">
-              <div className="text-center mb-24">
-                <span className="text-xs font-bold tracking-[0.4em] uppercase text-black mb-4 block">The Experience</span>
-                <h2 className="text-4xl md:text-5xl font-light">What to Expect</h2>
-                <p className="text-gray-500 mt-4">A seamless process for clinicians and patients</p>
+              <div className="flex flex-col md:flex-row justify-between items-end mb-24 gap-8">
+                <div className="max-w-2xl">
+                  <span className="text-xs font-bold tracking-[0.4em] uppercase text-[#5A5A40] mb-4 block">The Experience</span>
+                  <h2 className="text-4xl md:text-6xl font-light tracking-tight">Meticulous Process</h2>
+                </div>
+                <p className="text-gray-500 max-w-xs text-lg font-light">A seamless workflow designed for patient comfort and clinical precision.</p>
               </div>
 
-              <div className="grid md:grid-cols-3 gap-12">
+              <div className="grid md:grid-cols-3 gap-8">
                 {[
                   {
                     title: "Consultation",
-                    desc: "We discuss the patient's aesthetic goals and any specific characterization required for the restoration.",
-                    icon: <Users className="w-8 h-8" />
+                    desc: "We review the clinical case and patient expectations to determine the ideal aesthetic outcome.",
+                    icon: <Users className="w-6 h-6" />
                   },
                   {
-                    title: "Color Matching",
-                    desc: "Using advanced shade guides and digital photography, we capture the exact nuances of the surrounding dentition.",
-                    icon: <Camera className="w-8 h-8" />
+                    title: "Shade Analysis",
+                    desc: "Using multi-spectrum lighting and advanced shade guides, we map the internal structure and surface texture.",
+                    icon: <Camera className="w-6 h-6" />
                   },
                   {
-                    title: "Final Staining",
-                    desc: "Our master technicians apply custom stains and glazes to ensure a lifelike, natural integration.",
-                    icon: <Sparkles className="w-8 h-8" />
+                    title: "Characterization",
+                    desc: "We document the unique nuances, translucency, and mamelon structures to ensure a lifelike integration.",
+                    icon: <Sparkles className="w-6 h-6" />
                   }
                 ].map((step, i) => (
-                  <div key={i} className="p-10 bg-white rounded-3xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
-                    <div className="mb-6 text-black">{step.icon}</div>
+                  <motion.div 
+                    key={i}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: i * 0.1 }}
+                    className="p-12 bg-white rounded-[2.5rem] border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-500 group"
+                  >
+                    <div className="w-14 h-14 bg-[#F9F9F9] rounded-2xl flex items-center justify-center mb-8 text-black group-hover:bg-black group-hover:text-white transition-colors duration-500">
+                      {step.icon}
+                    </div>
                     <h3 className="text-xl font-bold mb-4 uppercase tracking-wider">{step.title}</h3>
-                    <p className="text-gray-500 leading-relaxed">{step.desc}</p>
-                  </div>
+                    <p className="text-gray-500 leading-relaxed font-light">{step.desc}</p>
+                  </motion.div>
                 ))}
               </div>
             </div>
@@ -1100,11 +1128,14 @@ export default function App() {
         <div className="max-w-7xl mx-auto">
           <div className="grid md:grid-cols-4 gap-16 mb-20">
             <div className="col-span-2">
-              <div className="flex items-center gap-2 mb-8">
-                <div className="w-8 h-8 bg-white flex items-center justify-center rounded-sm">
-                  <span className="text-black font-bold text-lg">H</span>
-                </div>
-                <span className="text-xl font-semibold tracking-tight uppercase">Hive Dental Lab</span>
+              <div className="flex items-center gap-3 mb-8">
+                <img 
+                  src="https://res.cloudinary.com/dziihg83k/image/upload/v1775796111/333_oyyykt.jpg" 
+                  alt="Hive Dental Lab Logo" 
+                  className="w-10 h-10 object-contain brightness-0 invert"
+                  referrerPolicy="no-referrer"
+                />
+                <span className="text-xl font-semibold tracking-tight uppercase">HIVE DENTAL LAB</span>
               </div>
               <p className="text-gray-400 max-w-sm leading-relaxed">
                 Edmonton's premier dental laboratory specializing in aesthetic and restorative excellence. Partnering with clinicians to deliver superior patient outcomes.
