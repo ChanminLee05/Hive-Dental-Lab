@@ -58,7 +58,7 @@ const serviceCategories: ServiceCategory[] = [
   { 
     name: "Aesthetic & Planning", 
     description: "Meticulous design for the perfect smile transformation.",
-    items: ["Veneers", "Diagnostic Wax-up", "Custom Shading", "Smile Design"],
+    items: ["Veneers", "Diagnostic Wax-up", "Custom Shading"],
     icon: <Sparkles className="w-8 h-8" />
   },
   { 
@@ -418,7 +418,7 @@ export default function App() {
               <motion.div 
                 key={idx} 
                 whileHover={{ y: -8 }}
-                className="bg-white p-12 md:p-16 rounded-[2.5rem] shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-[#E5E5E5] group transition-all duration-500"
+                className="bg-white p-8 md:p-10 rounded-[2.5rem] shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-[#E5E5E5] group transition-all duration-500"
               >
                 <div className="flex justify-between items-start mb-12">
                   <div className="text-[#1A1A1A] group-hover:scale-110 transition-transform duration-500 origin-left">
@@ -890,7 +890,7 @@ export default function App() {
                     </ul>
                     <div className="p-6 bg-white rounded-2xl border border-gray-100">
                       <p className="font-bold text-sm mb-4">To Send Cases:</p>
-                      <ul className="space-y-2 text-sm text-gray-500">
+                      <ul className="space-y-2 text-[0.7rem] text-gray-500">
                         <li>• After scanning, go to the Case Details page.</li>
                         <li>• Click Order, fill out the form, and click OK.</li>
                         <li>• Your order will show as Accepted, and then Shipped.</li>
@@ -953,7 +953,7 @@ export default function App() {
                   <div className="pt-12 border-t border-white/10">
                     <a 
                       href="mailto:hivedental@gmail.com" 
-                      className="text-2xl md:text-4xl font-light hover:text-gray-400 transition-colors break-all tracking-tight"
+                      className="text-xl md:text-3xl font-light hover:text-gray-400 transition-colors break-all tracking-tight"
                     >
                       hivedental@gmail.com
                     </a>
@@ -1130,7 +1130,7 @@ export default function App() {
             <div className="col-span-2">
               <div className="flex items-center gap-3 mb-8">
                 <img 
-                  src="https://res.cloudinary.com/dziihg83k/image/upload/v1775796111/333_oyyykt.jpg" 
+                  src="https://res.cloudinary.com/dziihg83k/image/upload/v1775797389/logo-removebg-preview_ilfrbw.png" 
                   alt="Hive Dental Lab Logo" 
                   className="w-10 h-10 object-contain brightness-0 invert"
                   referrerPolicy="no-referrer"
