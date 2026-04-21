@@ -224,14 +224,14 @@ export default function App() {
       {/* Navigation */}
       <nav className={`fixed w-full z-50 transition-all duration-500 ${scrolled ? "bg-white/80 backdrop-blur-md py-4 shadow-sm" : "bg-transparent py-6"}`}>
         <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
-          <div className="flex items-center gap-3">
+          <div className="relative h-16 w-48 md:w-64 flex items-center">
             <img 
-              src="https://res.cloudinary.com/dziihg83k/image/upload/v1775797389/logo-removebg-preview_ilfrbw.png" 
-              alt="Hive Dental Lab Logo" 
-              className="w-10 h-10 object-contain"
+              src="https://res.cloudinary.com/dziihg83k/image/upload/v1776735331/%EC%9D%B4%EA%B1%B0_%EB%B0%B1%EA%B7%B8%EB%9D%BC%EC%9A%B4%EB%93%9C_%ED%88%AC%EB%AA%85%ED%95%98%EA%B2%8C_202604201934-removebg-preview_odr6mg.png" 
+              alt="Hive Dental Laboratory" 
+              className="absolute left-0 h-24 md:h-36 w-auto object-contain cursor-pointer transition-all duration-300 hover:scale-105 mix-blend-multiply origin-left"
+              onClick={() => { setCurrentPage('home'); window.scrollTo(0, 0); }}
               referrerPolicy="no-referrer"
             />
-            <span className="text-xl font-semibold tracking-tight uppercase">HIVE DENTAL LAB</span>
           </div>
 
           {/* Desktop Nav */}
@@ -1087,7 +1087,7 @@ export default function App() {
                     <p className="text-lg text-gray-400 mb-12">Our lab is conveniently located in Edmonton. Patients can visit us for a professional shade match in a controlled environment.</p>
                   </div>
                   <div className="pt-12 border-t border-white/10 mt-auto">
-                    <p className="text-xl font-light mb-4">Hive Dental Lab</p>
+                    <p className="text-xl font-light mb-4 text-white">Hive Dental Laboratory</p>
                     <p className="text-gray-400 mb-8">Edmonton, AB</p>
                     <button 
                       onClick={openCalendly}
@@ -1128,14 +1128,16 @@ export default function App() {
         <div className="max-w-7xl mx-auto">
           <div className="grid md:grid-cols-4 gap-16 mb-20">
             <div className="col-span-2">
-              <div className="flex items-center gap-3 mb-8">
-                <img 
-                  src="https://res.cloudinary.com/dziihg83k/image/upload/v1775797389/logo-removebg-preview_ilfrbw.png" 
-                  alt="Hive Dental Lab Logo" 
-                  className="w-10 h-10 object-contain brightness-0 invert"
-                  referrerPolicy="no-referrer"
-                />
-                <span className="text-xl font-semibold tracking-tight uppercase">HIVE DENTAL LAB</span>
+              <div className="flex items-center gap-4 mb-8">
+                <div className="bg-transparent p-2 rounded-lg">
+                  <img 
+                    src="https://res.cloudinary.com/dziihg83k/image/upload/v1776747390/%EC%9D%B4%EA%B1%B0_%ED%95%98%EC%96%80%EC%83%89%EC%9C%BC%EB%A1%9C_%EB%B0%94%EA%BF%94%EC%A4%98_202604202255-removebg-preview_kkdvz9.png" 
+                    alt="Hive Dental Logo Icon" 
+                    className="w-10 h-10 object-contain"
+                    referrerPolicy="no-referrer"
+                  />
+                </div>
+                <span className="text-xl font-bold tracking-tight uppercase text-white">HIVE DENTAL LABORATORY</span>
               </div>
               <p className="text-gray-400 max-w-sm leading-relaxed">
                 Edmonton's premier dental laboratory specializing in aesthetic and restorative excellence. Partnering with clinicians to deliver superior patient outcomes.
@@ -1245,7 +1247,7 @@ export default function App() {
             </div>
           </div>
           <div className="pt-12 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-6 text-xs text-gray-500 uppercase tracking-widest">
-            <p>© 2024 Hive Dental Lab. All rights reserved.</p>
+            <p>© 2024 Hive Dental Laboratory. All rights reserved.</p>
             <div className="flex gap-8">
               <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
               <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
