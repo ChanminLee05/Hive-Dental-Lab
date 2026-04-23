@@ -82,12 +82,15 @@ const galleryItems: GalleryItem[] = [
     category: "Aesthetic", 
     imageUrl: "https://images.unsplash.com/photo-1670250492416-570b5b7343b1?auto=format&fit=crop&q=80&w=800",
     album: [
-      "https://images.unsplash.com/photo-1670250492416-570b5b7343b1?auto=format&fit=crop&q=80&w=800",
-      "https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&q=80&w=800",
-      "https://images.unsplash.com/photo-1598256989800-fe5f95da9787?auto=format&fit=crop&q=80&w=800",
-      "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&q=80&w=800",
-      "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&q=80&w=800",
-      "https://images.unsplash.com/photo-1445510491599-c391e8046a68?auto=format&fit=crop&q=80&w=800"
+      "https://res.cloudinary.com/dziihg83k/image/upload/v1776910356/DSC_1138_miq6n9.jpg?auto=format&fit=crop&q=80&w=800",
+      "https://res.cloudinary.com/dziihg83k/image/upload/v1776910357/DSC_1273_e2w0id.jpg?auto=format&fit=crop&q=80&w=800",
+      "https://res.cloudinary.com/dziihg83k/image/upload/v1776910357/DSC_2263_q9d2u9.jpg?auto=format&fit=crop&q=80&w=800",
+      "https://res.cloudinary.com/dziihg83k/image/upload/v1776910357/DSC_1298_u299k5.jpg?auto=format&fit=crop&q=80&w=800",
+      "https://res.cloudinary.com/dziihg83k/image/upload/v1776910356/DSC_1294_jrvdhq.jpg?auto=format&fit=crop&q=80&w=800",
+      "https://res.cloudinary.com/dziihg83k/image/upload/v1776910356/DSC_1115_ubtsu9.jpg?auto=format&fit=crop&q=80&w=800",
+      "https://res.cloudinary.com/dziihg83k/image/upload/v1776910356/DSC_1114_znnl2y.jpg?auto=format&fit=crop&q=80&w=800",
+      "https://res.cloudinary.com/dziihg83k/image/upload/v1776910357/DSC_0685_wjb0si.jpg?auto=format&fit=crop&q=80&w=800",
+      "https://res.cloudinary.com/dziihg83k/image/upload/v1776910356/DSC_0679_f6freq.jpg?auto=format&fit=crop&q=80&w=800"
     ]
   },
   { 
@@ -96,10 +99,8 @@ const galleryItems: GalleryItem[] = [
     category: "Aesthetic", 
     imageUrl: "https://images.unsplash.com/photo-1690167687106-180b0ea1d813?auto=format&fit=crop&q=80&w=800",
     album: [
-      "https://images.unsplash.com/photo-1690167687106-180b0ea1d813?auto=format&fit=crop&q=80&w=800",
-      "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&q=80&w=800",
-      "https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&q=80&w=800",
-      "https://images.unsplash.com/photo-1616391182219-e080b4d1043a?auto=format&fit=crop&q=80&w=800"
+      "https://res.cloudinary.com/dziihg83k/image/upload/v1776914057/To_Be_Updated_202604222114_uzbukh.jpg?auto=format&fit=crop&q=80&w=800",
+      
     ]
   },
   { 
@@ -108,10 +109,8 @@ const galleryItems: GalleryItem[] = [
     category: "Fixed", 
     imageUrl: "https://res.cloudinary.com/dziihg83k/image/upload/v1774812501/PFM_mw7t1y.jpg?auto=format&fit=crop&q=80&w=800",
     album: [
-      "https://res.cloudinary.com/dziihg83k/image/upload/v1774812501/PFM_mw7t1y.jpg?auto=format&fit=crop&q=80&w=800",
-      "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&q=80&w=800",
-      "https://images.unsplash.com/photo-1584132967334-10e028bd69f7?auto=format&fit=crop&q=80&w=800",
-      "https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&q=80&w=800"
+      "https://res.cloudinary.com/dziihg83k/image/upload/v1776914057/To_Be_Updated_202604222114_uzbukh.jpg?auto=format&fit=crop&q=80&w=800",
+
     ]
   },
   { 
@@ -121,9 +120,9 @@ const galleryItems: GalleryItem[] = [
     imageUrl: "https://res.cloudinary.com/dziihg83k/image/upload/v1774812343/Implant_qvv4hs.png?auto=format&fit=crop&q=80&w=800",
     album: [
       "https://res.cloudinary.com/dziihg83k/image/upload/v1774812343/Implant_qvv4hs.png?auto=format&fit=crop&q=80&w=800",
-      "https://images.unsplash.com/photo-1609840114035-3c981b782dfe?auto=format&fit=crop&q=80&w=800",
-      "https://images.unsplash.com/photo-1598256989590-295c3a5dd286?auto=format&fit=crop&q=80&w=800",
-      "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&q=80&w=800"
+      "https://res.cloudinary.com/dziihg83k/image/upload/v1776910356/DSC_0830_uvctva.jpg?auto=format&fit=crop&q=80&w=800",
+      "https://res.cloudinary.com/dziihg83k/image/upload/v1776910356/DSC_0838_l6eqco.jpg?auto=format&fit=crop&q=80&w=800",
+      "https://res.cloudinary.com/dziihg83k/image/upload/v1776910356/DSC_0835_qixjdo.jpg?auto=format&fit=crop&q=80&w=800"
     ]
   },
   { 
@@ -134,8 +133,8 @@ const galleryItems: GalleryItem[] = [
     album: [
       "https://backerdentallab.com/wp-content/uploads/2018/05/Z-max-molar-1.jpg?auto=format&fit=crop&q=80&w=800",
       "https://res.cloudinary.com/dziihg83k/image/upload/v1774815607/36_daoltr.jpg?auto=format&fit=crop&q=80&w=800",
-      "https://res.cloudinary.com/dziihg83k/image/upload/v1774815615/35_c28s5n.png?auto=format&fit=crop&q=80&w=800",
-      "https://images.unsplash.com/photo-1445510491599-c391e8046a68?auto=format&fit=crop&q=80&w=800"
+      "https://res.cloudinary.com/dziihg83k/image/upload/v1774815615/35_c28s5n.png?auto=format&fit=crop&q=80&w=800"
+
     ]
   },
   { 
@@ -144,9 +143,7 @@ const galleryItems: GalleryItem[] = [
     category: "Fixed", 
     imageUrl: "https://www.dmsdentistry.com/wp-content/uploads/2019/03/goldcrown1.jpg?auto=format&fit=crop&q=80&w=800",
     album: [
-      "https://www.dmsdentistry.com/wp-content/uploads/2019/03/goldcrown1.jpg?auto=format&fit=crop&q=80&w=800",
-      "https://images.unsplash.com/photo-1588776814222-2608d5165c6b?auto=format&fit=crop&q=80&w=800",
-      "https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&q=80&w=800"
+      "https://res.cloudinary.com/dziihg83k/image/upload/v1776914057/To_Be_Updated_202604222114_uzbukh.jpg?auto=format&fit=crop&q=80&w=800",
     ]
   },
 ];
