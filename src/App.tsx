@@ -23,7 +23,7 @@ import {
   Users,
   Camera
 } from "lucide-react";
-import { useState, useEffect, ReactNode, FormEvent } from "react";
+import { useState, useEffect, ReactNode, FormEvent, MouseEvent, TouchEvent } from "react";
 
 // Declare Calendly on window for TypeScript
 declare global {
@@ -40,13 +40,98 @@ interface ServiceCategory {
   icon: ReactNode;
 }
 
+interface BeforeAfter {
+  before: string;
+  after: string;
+  title?: string;
+}
+
 interface GalleryItem {
   id: number;
   title: string;
   category: string;
   imageUrl: string;
   album?: string[];
+  beforeAfter?: BeforeAfter[];
 }
+
+const BeforeAfterSlider = ({ before, after, title }: BeforeAfter) => {
+  const [sliderPos, setSliderPos] = useState(50);
+  const [isResizing, setIsResizing] = useState(false);
+
+  const handleMove = (e: MouseEvent | TouchEvent) => {
+    if (!isResizing && e.type !== 'touchmove') return;
+    
+    const container = (e.currentTarget as HTMLElement).getBoundingClientRect();
+    const x = 'touches' in e ? e.touches[0].pageX : e.pageX;
+    const position = ((x - container.left) / container.width) * 100;
+    
+    if (position >= 0 && position <= 100) {
+      setSliderPos(position);
+    }
+  };
+
+  return (
+    <div className="space-y-4 group/slider">
+      <div className="flex justify-between items-end">
+        {title && <h5 className="text-xl font-light tracking-tight text-gray-800">{title}</h5>}
+        <span className="text-[10px] font-bold uppercase tracking-widest text-[#5A5A40] opacity-0 group-hover/slider:opacity-100 transition-opacity">
+          Drag to Compare
+        </span>
+      </div>
+      <div 
+        className="relative aspect-[4/3] w-full overflow-hidden rounded-[2rem] cursor-col-resize select-none border border-gray-100 shadow-xl"
+        onMouseMove={handleMove}
+        onMouseDown={() => setIsResizing(true)}
+        onMouseUp={() => setIsResizing(false)}
+        onMouseLeave={() => setIsResizing(false)}
+        onTouchMove={handleMove}
+      >
+        {/* After Image (Background) */}
+        <div className="absolute inset-0">
+          <img 
+            src={after} 
+            alt="After" 
+            className="w-full h-full object-cover"
+            referrerPolicy="no-referrer"
+          />
+          <div className="absolute bottom-4 right-4 bg-black/50 backdrop-blur-md text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full">
+            After
+          </div>
+        </div>
+
+        {/* Before Image (Foreground with Clip) */}
+        <div 
+          className="absolute inset-0 z-10"
+          style={{ clipPath: `inset(0 ${100 - sliderPos}% 0 0)` }}
+        >
+          <img 
+            src={before} 
+            alt="Before" 
+            className="w-full h-full object-cover"
+            referrerPolicy="no-referrer"
+          />
+          <div className="absolute bottom-4 left-4 bg-white/80 backdrop-blur-md text-black text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full">
+            Before
+          </div>
+        </div>
+
+        {/* Slider Handle */}
+        <div 
+          className="absolute inset-y-0 z-20 w-[2px] bg-white shadow-[0_0_10px_rgba(0,0,0,0.3)] transition-all duration-100 pointer-events-none"
+          style={{ left: `${sliderPos}%` }}
+        >
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 bg-white rounded-full shadow-xl flex items-center justify-center border border-gray-200">
+            <div className="flex gap-1">
+              <ChevronRight className="w-4 h-4 text-gray-400 rotate-180" />
+              <ChevronRight className="w-4 h-4 text-gray-400" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 const serviceCategories: ServiceCategory[] = [
   { 
@@ -82,15 +167,34 @@ const galleryItems: GalleryItem[] = [
     category: "Aesthetic", 
     imageUrl: "https://images.unsplash.com/photo-1670250492416-570b5b7343b1?auto=format&fit=crop&q=80&w=800",
     album: [
-      "https://res.cloudinary.com/dziihg83k/image/upload/v1776910356/DSC_1138_miq6n9.jpg?auto=format&fit=crop&q=80&w=800",
-      "https://res.cloudinary.com/dziihg83k/image/upload/v1776910357/DSC_1273_e2w0id.jpg?auto=format&fit=crop&q=80&w=800",
-      "https://res.cloudinary.com/dziihg83k/image/upload/v1776910357/DSC_2263_q9d2u9.jpg?auto=format&fit=crop&q=80&w=800",
-      "https://res.cloudinary.com/dziihg83k/image/upload/v1776910357/DSC_1298_u299k5.jpg?auto=format&fit=crop&q=80&w=800",
-      "https://res.cloudinary.com/dziihg83k/image/upload/v1776910356/DSC_1294_jrvdhq.jpg?auto=format&fit=crop&q=80&w=800",
-      "https://res.cloudinary.com/dziihg83k/image/upload/v1776910356/DSC_1115_ubtsu9.jpg?auto=format&fit=crop&q=80&w=800",
-      "https://res.cloudinary.com/dziihg83k/image/upload/v1776910356/DSC_1114_znnl2y.jpg?auto=format&fit=crop&q=80&w=800",
-      "https://res.cloudinary.com/dziihg83k/image/upload/v1776910357/DSC_0685_wjb0si.jpg?auto=format&fit=crop&q=80&w=800",
-      "https://res.cloudinary.com/dziihg83k/image/upload/v1776910356/DSC_0679_f6freq.jpg?auto=format&fit=crop&q=80&w=800"
+      "https://res.cloudinary.com/dziihg83k/image/upload/v1776910357/DSC_2263_q9d2u9.jpg?auto=format&fit=crop&q=80&w=800"
+    ],
+    beforeAfter: [
+      {
+        title: "Smile Reconstruction",
+        before: "https://res.cloudinary.com/dziihg83k/image/upload/v1776910357/DSC_0685_wjb0si.jpg?auto=format&fit=crop&q=80&w=800",
+        after: "https://res.cloudinary.com/dziihg83k/image/upload/v1776910356/DSC_0679_f6freq.jpg?auto=format&fit=crop&q=80&w=800"
+      },
+      {
+        title: "Smile Reconstruction",
+        before: "https://res.cloudinary.com/dziihg83k/image/upload/v1776910356/DSC_1115_ubtsu9.jpg?auto=format&fit=crop&q=80&w=800",
+        after: "https://res.cloudinary.com/dziihg83k/image/upload/v1776910356/DSC_1114_znnl2y.jpg?auto=format&fit=crop&q=80&w=800"
+      },
+      {
+        title: "Smile Reconstruction",
+        before: "https://res.cloudinary.com/dziihg83k/image/upload/v1776910357/DSC_1298_u299k5.jpg?auto=format&fit=crop&q=80&w=800",
+        after: "https://res.cloudinary.com/dziihg83k/image/upload/v1776910356/DSC_1294_jrvdhq.jpg?auto=format&fit=crop&q=80&w=800"
+      },
+      {
+        title: "Smile Reconstruction",
+        before: "https://res.cloudinary.com/dziihg83k/image/upload/v1776910356/DSC_0983_u3l2bc.jpg?auto=format&fit=crop&q=80&w=800",
+        after: "https://res.cloudinary.com/dziihg83k/image/upload/v1776910357/DSC_0979_ndirj1.jpg?auto=format&fit=crop&q=80&w=800"
+      },
+      {
+        title: "Smile Reconstruction",
+        before: "https://res.cloudinary.com/dziihg83k/image/upload/v1776910356/DSC_1138_miq6n9.jpg?auto=format&fit=crop&q=80&w=800",
+        after: "https://res.cloudinary.com/dziihg83k/image/upload/v1776910357/DSC_1273_e2w0id.jpg?auto=format&fit=crop&q=80&w=800"
+      }
     ]
   },
   { 
@@ -99,9 +203,15 @@ const galleryItems: GalleryItem[] = [
     category: "Aesthetic", 
     imageUrl: "https://images.unsplash.com/photo-1690167687106-180b0ea1d813?auto=format&fit=crop&q=80&w=800",
     album: [
-      "https://res.cloudinary.com/dziihg83k/image/upload/v1776914057/To_Be_Updated_202604222114_uzbukh.jpg?auto=format&fit=crop&q=80&w=800",
-      
-    ]
+      "https://res.cloudinary.com/dziihg83k/image/upload/v1776914057/To_Be_Updated_202604222114_uzbukh.jpg?auto=format&fit=crop&q=80&w=800"
+    ],
+    // beforeAfter: [
+    //   {
+    //     title: "Veneer Placement",
+    //     before: "https://images.unsplash.com/photo-1616391182219-e080b4d1043a?auto=format&fit=crop&q=80&w=800",
+    //     after: "https://images.unsplash.com/photo-1690167687106-180b0ea1d813?auto=format&fit=crop&q=80&w=800"
+    //   }
+    // ]
   },
   { 
     id: 3, 
@@ -109,20 +219,30 @@ const galleryItems: GalleryItem[] = [
     category: "Fixed", 
     imageUrl: "https://res.cloudinary.com/dziihg83k/image/upload/v1774812501/PFM_mw7t1y.jpg?auto=format&fit=crop&q=80&w=800",
     album: [
-      "https://res.cloudinary.com/dziihg83k/image/upload/v1776914057/To_Be_Updated_202604222114_uzbukh.jpg?auto=format&fit=crop&q=80&w=800",
-
-    ]
+      "https://res.cloudinary.com/dziihg83k/image/upload/v1776914057/To_Be_Updated_202604222114_uzbukh.jpg?auto=format&fit=crop&q=80&w=800"
+    ],
+    // beforeAfter: [
+    //   {
+    //     title: "Crown Prep & Fit",
+    //     before: "https://images.unsplash.com/photo-1584132967334-10e028bd69f7?auto=format&fit=crop&q=80&w=800",
+    //     after: "https://res.cloudinary.com/dziihg83k/image/upload/v1774812501/PFM_mw7t1y.jpg?auto=format&fit=crop&q=80&w=800"
+    //   }
+    // ]
   },
   { 
     id: 4, 
     title: "Implant Solutions", 
     category: "Implant", 
-    imageUrl: "https://res.cloudinary.com/dziihg83k/image/upload/v1774812343/Implant_qvv4hs.png?auto=format&fit=crop&q=80&w=800",
+    imageUrl: "https://res.cloudinary.com/dziihg83k/image/upload/v1777000385/%EC%B9%98%EC%95%84_%EB%B3%B4%EC%9D%B4%EB%8A%94_%EC%9E%84%ED%94%8C%EB%9E%80%ED%8A%B8_202604232112_ukot7f.jpg?auto=format&fit=crop&q=80&w=800",
     album: [
-      "https://res.cloudinary.com/dziihg83k/image/upload/v1774812343/Implant_qvv4hs.png?auto=format&fit=crop&q=80&w=800",
-      "https://res.cloudinary.com/dziihg83k/image/upload/v1776910356/DSC_0830_uvctva.jpg?auto=format&fit=crop&q=80&w=800",
-      "https://res.cloudinary.com/dziihg83k/image/upload/v1776910356/DSC_0838_l6eqco.jpg?auto=format&fit=crop&q=80&w=800",
       "https://res.cloudinary.com/dziihg83k/image/upload/v1776910356/DSC_0835_qixjdo.jpg?auto=format&fit=crop&q=80&w=800"
+    ],
+    beforeAfter: [
+      {
+        title: "Implant Final Fixation",
+        before: "https://res.cloudinary.com/dziihg83k/image/upload/v1776910356/DSC_0830_uvctva.jpg?auto=format&fit=crop&q=80&w=800",
+        after: "https://res.cloudinary.com/dziihg83k/image/upload/v1776910356/DSC_0838_l6eqco.jpg?auto=format&fit=crop&q=80&w=800"
+      }
     ]
   },
   { 
@@ -131,10 +251,8 @@ const galleryItems: GalleryItem[] = [
     category: "Fixed", 
     imageUrl: "https://backerdentallab.com/wp-content/uploads/2018/05/Z-max-molar-1.jpg?auto=format&fit=crop&q=80&w=800",
     album: [
-      "https://backerdentallab.com/wp-content/uploads/2018/05/Z-max-molar-1.jpg?auto=format&fit=crop&q=80&w=800",
-      "https://res.cloudinary.com/dziihg83k/image/upload/v1774815607/36_daoltr.jpg?auto=format&fit=crop&q=80&w=800",
-      "https://res.cloudinary.com/dziihg83k/image/upload/v1774815615/35_c28s5n.png?auto=format&fit=crop&q=80&w=800"
-
+      "https://res.cloudinary.com/dziihg83k/image/upload/v1776914057/To_Be_Updated_202604222114_uzbukh.jpg?auto=format&fit=crop&q=80&w=800",
+      
     ]
   },
   { 
@@ -564,43 +682,80 @@ export default function App() {
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -50 }}
                 transition={{ duration: 0.5 }}
-                className="space-y-16"
+                className="space-y-24"
               >
-                <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
-                  <button 
-                    onClick={() => setSelectedGalleryItem(null)}
-                    className="flex items-center gap-3 text-xs font-bold uppercase tracking-[0.3em] hover:opacity-50 transition-all"
-                  >
-                    <ArrowLeft className="w-4 h-4" />
-                    Back to Portfolio
-                  </button>
-                  <div className="md:text-right">
-                    <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-gray-400 mb-2">{selectedGalleryItem.category}</p>
-                    <h3 className="text-4xl font-light tracking-tight">{selectedGalleryItem.title}</h3>
+                <div className="flex flex-col md:flex-row items-start md:items-end justify-between gap-8 border-b border-gray-100 pb-12">
+                  <div className="space-y-6">
+                    <button 
+                      onClick={() => setSelectedGalleryItem(null)}
+                      className="flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.4em] text-gray-400 hover:text-black transition-all group"
+                    >
+                      <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
+                      Back to Portfolio
+                    </button>
+                    <h3 className="text-5xl md:text-7xl font-light tracking-tighter text-[#1A1A1A]">{selectedGalleryItem.title}</h3>
+                  </div>
+                  <div className="flex flex-col items-start md:items-end gap-2">
+                    <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-[#5A5A40] bg-[#F5F5F0] px-4 py-2 rounded-full">
+                      {selectedGalleryItem.category}
+                    </span>
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                  {selectedGalleryItem.album?.map((img, idx) => (
-                    <motion.div 
-                      key={idx}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: idx * 0.1 }}
-                      className="aspect-[4/5] bg-gray-50 overflow-hidden cursor-pointer group"
-                      onClick={() => setSelectedImage(img)}
-                    >
-                      <img 
-                        src={img} 
-                        alt={`${selectedGalleryItem.title} ${idx + 1}`} 
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000"
-                        referrerPolicy="no-referrer"
-                      />
-                      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-500 flex items-center justify-center">
-                        <Camera className="w-6 h-6 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                      </div>
-                    </motion.div>
-                  ))}
+                {/* Comparison Section */}
+                {selectedGalleryItem.beforeAfter && selectedGalleryItem.beforeAfter.length > 0 && (
+                  <div className="space-y-12">
+                    <div className="flex items-center gap-4">
+                      <div className="h-[1px] flex-1 bg-gray-100" />
+                      <h4 className="text-[10px] font-bold uppercase tracking-[0.4em] text-gray-300">Before & After Comparisons</h4>
+                      <div className="h-[1px] flex-1 bg-gray-100" />
+                    </div>
+                    
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                      {selectedGalleryItem.beforeAfter.map((pair, idx) => (
+                        <motion.div
+                          key={`ba-${idx}`}
+                          initial={{ opacity: 0, scale: 0.95 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          transition={{ delay: idx * 0.1 }}
+                        >
+                          <BeforeAfterSlider {...pair} />
+                        </motion.div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Album Grid */}
+                <div className="space-y-12">
+                  <div className="flex items-center gap-4">
+                    <div className="h-[1px] flex-1 bg-gray-100" />
+                    <h4 className="text-[10px] font-bold uppercase tracking-[0.4em] text-gray-300">Case Gallery</h4>
+                    <div className="h-[1px] flex-1 bg-gray-100" />
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {selectedGalleryItem.album?.map((img, idx) => (
+                      <motion.div 
+                        key={idx}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: idx * 0.1 }}
+                        className="aspect-[4/5] bg-gray-50 overflow-hidden cursor-pointer group rounded-2xl border border-gray-100"
+                        onClick={() => setSelectedImage(img)}
+                      >
+                        <img 
+                          src={img} 
+                          alt={`${selectedGalleryItem.title} ${idx + 1}`} 
+                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000"
+                          referrerPolicy="no-referrer"
+                        />
+                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-500 flex items-center justify-center">
+                          <Camera className="w-8 h-8 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-500 scale-90 group-hover:scale-100" />
+                        </div>
+                      </motion.div>
+                    ))}
+                  </div>
                 </div>
               </motion.div>
             )}
