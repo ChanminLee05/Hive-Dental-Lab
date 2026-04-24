@@ -582,7 +582,7 @@ export default function App() {
           </div>
           <div className="space-y-8">
             <span className="text-xs font-bold tracking-[0.4em] uppercase text-gray-400 block">The Founder</span>
-            <h2 className="text-4xl md:text-6xl font-light leading-tight">Aiden Lee</h2>
+            <h2 className="text-4xl md:text-6xl font-light leading-tight">Sungho Aiden Lee</h2>
             <p className="text-xl text-gray-600 leading-relaxed italic font-serif">
               "Precision is not just a goal; it's our standard. Every restoration is a piece of art that restores both function and confidence."
             </p>
