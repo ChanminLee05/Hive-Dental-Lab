@@ -160,119 +160,43 @@ const serviceCategories: ServiceCategory[] = [
   },
 ];
 
-const galleryItems: GalleryItem[] = [
-  { 
-    id: 1, 
-    title: "Anterior Zirconia", 
-    category: "Aesthetic", 
-    imageUrl: "https://images.unsplash.com/photo-1670250492416-570b5b7343b1?auto=format&fit=crop&q=80&w=800",
-    album: [
-      "https://res.cloudinary.com/dziihg83k/image/upload/v1776910357/DSC_2263_q9d2u9.jpg?auto=format&fit=crop&q=80&w=800"
-    ],
-    beforeAfter: [
-      {
-        title: "Smile Reconstruction",
-        before: "https://res.cloudinary.com/dziihg83k/image/upload/v1776910357/DSC_0685_wjb0si.jpg?auto=format&fit=crop&q=80&w=800",
-        after: "https://res.cloudinary.com/dziihg83k/image/upload/v1776910356/DSC_0679_f6freq.jpg?auto=format&fit=crop&q=80&w=800"
-      },
-      {
-        title: "Smile Reconstruction",
-        before: "https://res.cloudinary.com/dziihg83k/image/upload/v1776910356/DSC_1115_ubtsu9.jpg?auto=format&fit=crop&q=80&w=800",
-        after: "https://res.cloudinary.com/dziihg83k/image/upload/v1776910356/DSC_1114_znnl2y.jpg?auto=format&fit=crop&q=80&w=800"
-      },
-      {
-        title: "Smile Reconstruction",
-        before: "https://res.cloudinary.com/dziihg83k/image/upload/v1776910357/DSC_1298_u299k5.jpg?auto=format&fit=crop&q=80&w=800",
-        after: "https://res.cloudinary.com/dziihg83k/image/upload/v1776910356/DSC_1294_jrvdhq.jpg?auto=format&fit=crop&q=80&w=800"
-      },
-      {
-        title: "Smile Reconstruction",
-        before: "https://res.cloudinary.com/dziihg83k/image/upload/v1776910356/DSC_0983_u3l2bc.jpg?auto=format&fit=crop&q=80&w=800",
-        after: "https://res.cloudinary.com/dziihg83k/image/upload/v1776910357/DSC_0979_ndirj1.jpg?auto=format&fit=crop&q=80&w=800"
-      },
-      {
-        title: "Smile Reconstruction",
-        before: "https://res.cloudinary.com/dziihg83k/image/upload/v1776910356/DSC_1138_miq6n9.jpg?auto=format&fit=crop&q=80&w=800",
-        after: "https://res.cloudinary.com/dziihg83k/image/upload/v1776910357/DSC_1273_e2w0id.jpg?auto=format&fit=crop&q=80&w=800"
-      }
-    ]
+const beforeAfterCases: BeforeAfter[] = [
+  {
+    title: "Smile Reconstruction",
+    before: "https://res.cloudinary.com/dziihg83k/image/upload/v1782270195/before1_ttvi5w.png?auto=format&fit=crop&q=80&w=800",
+    after: "https://res.cloudinary.com/dziihg83k/image/upload/v1782270195/after1_dubdjl.png?auto=format&fit=crop&q=80&w=800"
   },
-  { 
-    id: 2, 
-    title: "Emax Veneers", 
-    category: "Aesthetic", 
-    imageUrl: "https://images.unsplash.com/photo-1690167687106-180b0ea1d813?auto=format&fit=crop&q=80&w=800",
-    album: [
-      "https://res.cloudinary.com/dziihg83k/image/upload/v1776914057/To_Be_Updated_202604222114_uzbukh.jpg?auto=format&fit=crop&q=80&w=800"
-    ],
-    // beforeAfter: [
-    //   {
-    //     title: "Veneer Placement",
-    //     before: "https://images.unsplash.com/photo-1616391182219-e080b4d1043a?auto=format&fit=crop&q=80&w=800",
-    //     after: "https://images.unsplash.com/photo-1690167687106-180b0ea1d813?auto=format&fit=crop&q=80&w=800"
-    //   }
-    // ]
+  {
+    title: "Smile Reconstruction",
+    before: "https://res.cloudinary.com/dziihg83k/image/upload/v1782270694/before2_snypil.png?auto=format&fit=crop&q=80&w=800",
+    after: "https://res.cloudinary.com/dziihg83k/image/upload/v1782270694/after2_lt7x8t.png?auto=format&fit=crop&q=80&w=800"
   },
-  { 
-    id: 3, 
-    title: "PFM Restoration", 
-    category: "Fixed", 
-    imageUrl: "https://res.cloudinary.com/dziihg83k/image/upload/v1774812501/PFM_mw7t1y.jpg?auto=format&fit=crop&q=80&w=800",
-    album: [
-      "https://res.cloudinary.com/dziihg83k/image/upload/v1776914057/To_Be_Updated_202604222114_uzbukh.jpg?auto=format&fit=crop&q=80&w=800"
-    ],
-    // beforeAfter: [
-    //   {
-    //     title: "Crown Prep & Fit",
-    //     before: "https://images.unsplash.com/photo-1584132967334-10e028bd69f7?auto=format&fit=crop&q=80&w=800",
-    //     after: "https://res.cloudinary.com/dziihg83k/image/upload/v1774812501/PFM_mw7t1y.jpg?auto=format&fit=crop&q=80&w=800"
-    //   }
-    // ]
+  {
+    title: "Smile Reconstruction",
+    before: "https://res.cloudinary.com/dziihg83k/image/upload/v1782272552/before3_hafc38.png?auto=format&fit=crop&q=80&w=800",
+    after: "https://res.cloudinary.com/dziihg83k/image/upload/v1782272551/after3_w6zncb.png?auto=format&fit=crop&q=80&w=800"
   },
-  { 
-    id: 4, 
-    title: "Implant Solutions", 
-    category: "Implant", 
-    imageUrl: "https://res.cloudinary.com/dziihg83k/image/upload/v1777000385/%EC%B9%98%EC%95%84_%EB%B3%B4%EC%9D%B4%EB%8A%94_%EC%9E%84%ED%94%8C%EB%9E%80%ED%8A%B8_202604232112_ukot7f.jpg?auto=format&fit=crop&q=80&w=800",
-    album: [
-      "https://res.cloudinary.com/dziihg83k/image/upload/v1776910356/DSC_0835_qixjdo.jpg?auto=format&fit=crop&q=80&w=800"
-    ],
-    beforeAfter: [
-      {
-        title: "Implant Final Fixation",
-        before: "https://res.cloudinary.com/dziihg83k/image/upload/v1776910356/DSC_0830_uvctva.jpg?auto=format&fit=crop&q=80&w=800",
-        after: "https://res.cloudinary.com/dziihg83k/image/upload/v1776910356/DSC_0838_l6eqco.jpg?auto=format&fit=crop&q=80&w=800"
-      }
-    ]
+  {
+    title: "Smile Reconstruction",
+    before: "https://res.cloudinary.com/dziihg83k/image/upload/v1782274796/before4_dz9ku4.jpg?auto=format&fit=crop&q=80&w=800",
+    after: "https://res.cloudinary.com/dziihg83k/image/upload/v1782274795/after4_vobtxn.jpg?auto=format&fit=crop&q=80&w=800"
   },
-  { 
-    id: 5, 
-    title: "Posterior Zirconia", 
-    category: "Fixed", 
-    imageUrl: "https://backerdentallab.com/wp-content/uploads/2018/05/Z-max-molar-1.jpg?auto=format&fit=crop&q=80&w=800",
-    album: [
-      "https://res.cloudinary.com/dziihg83k/image/upload/v1776914057/To_Be_Updated_202604222114_uzbukh.jpg?auto=format&fit=crop&q=80&w=800",
-      
-    ]
+  {
+    title: "Smile Reconstruction",
+    before: "https://res.cloudinary.com/dziihg83k/image/upload/v1776910356/DSC_1138_miq6n9.jpg?auto=format&fit=crop&q=80&w=800",
+    after: "https://res.cloudinary.com/dziihg83k/image/upload/v1776910357/DSC_1273_e2w0id.jpg?auto=format&fit=crop&q=80&w=800"
   },
-  { 
-    id: 6, 
-    title: "Full Gold Crown", 
-    category: "Fixed", 
-    imageUrl: "https://www.dmsdentistry.com/wp-content/uploads/2019/03/goldcrown1.jpg?auto=format&fit=crop&q=80&w=800",
-    album: [
-      "https://res.cloudinary.com/dziihg83k/image/upload/v1776914057/To_Be_Updated_202604222114_uzbukh.jpg?auto=format&fit=crop&q=80&w=800",
-    ]
-  },
+  {
+    title: "Implant Final Fixation",
+    before: "https://res.cloudinary.com/dziihg83k/image/upload/v1776910356/DSC_0830_uvctva.jpg?auto=format&fit=crop&q=80&w=800",
+    after: "https://res.cloudinary.com/dziihg83k/image/upload/v1776910356/DSC_0838_l6eqco.jpg?auto=format&fit=crop&q=80&w=800"
+  }
 ];
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState<'home' | 'digital-scan' | 'custom-shading'>('home');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [activeCategory, setActiveCategory] = useState("All");
-  const [selectedGalleryItem, setSelectedGalleryItem] = useState<GalleryItem | null>(null);
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -312,12 +236,6 @@ export default function App() {
       setIsSubmitting(false);
     }
   };
-
-  const categories = ["All", "Fixed", "Aesthetic", "Implant"];
-  
-  const filteredItems = activeCategory === "All" 
-    ? galleryItems 
-    : galleryItems.filter(item => item.category === activeCategory);
 
   const openCalendly = () => {
     if (window.Calendly) {
@@ -584,14 +502,20 @@ export default function App() {
             <span className="text-xs font-bold tracking-[0.4em] uppercase text-gray-400 block">The Founder</span>
             <h2 className="text-4xl md:text-6xl font-light leading-tight">Sungho Aiden Lee</h2>
             <p className="text-xl text-gray-600 leading-relaxed italic font-serif">
-              "Precision is not just a goal; it's our standard. Every restoration is a piece of art that restores both function and confidence."
+              "Prosthetics are essentially a part of the human body that restores health and brings smiles back to people's faces."
             </p>
             <div className="space-y-6 text-gray-500 leading-relaxed">
               <p>
-                With over two decades of experience in the dental laboratory industry, Aiden Lee has established Hive Dental Lab as a beacon of quality in Edmonton. His expertise spans from complex full-mouth reconstructions to delicate aesthetic veneers.
+                When teeth fail to function properly, it can cause discomfort in daily life and lead to both physical health issues and psychological distress.
               </p>
               <p>
-                Under his leadership, Hive Dental Lab integrates the latest digital technologies with time-tested hand-finishing techniques to ensure every crown, bridge, and guard meets the highest clinical standards.
+                Anterior teeth must look as natural and beautiful as one's own to give people a happy smile and the confidence to speak freely. On the other hand, posterior teeth must fully perform their functional duty—allowing proper chewing so that internal organs can digest food efficiently and absorb essential nutrients.
+              </p>
+              <p>
+                Throughout my life as a dental technician, these are the truths I have realized from meeting, listening to, and conversing with countless patients. These experiences have naturally shaped my personal philosophy and professional outlook.
+              </p>
+              <p>
+                At Hive Dental Lab, every single member of our team pours their heart, soul, and passion into every individual tooth, driven by the mission to deliver health and joyful smiles to our patients.
               </p>
             </div>
             <div className="pt-6">
@@ -607,163 +531,35 @@ export default function App() {
       {/* Gallery Section */}
       <section id="gallery" className="py-32 px-6 bg-white">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-20">
+          <div className="text-center mb-24">
             <span className="text-xs font-bold tracking-[0.4em] uppercase text-gray-400 mb-4 block">Portfolio</span>
-            <h2 className="text-4xl md:text-6xl font-light mb-8">Clinical Excellence</h2>
-            
-            {/* Filter Bar */}
-            <div className="flex flex-wrap justify-center gap-4 mt-12">
-              {categories.map((cat) => (
-                <button
-                  key={cat}
-                  onClick={() => setActiveCategory(cat)}
-                  className={`px-8 py-2 text-xs font-bold tracking-widest uppercase transition-all duration-300 border ${
-                    activeCategory === cat 
-                      ? "bg-black text-white border-black" 
-                      : "bg-transparent text-gray-400 border-gray-100 hover:border-gray-300"
-                  }`}
-                >
-                  {cat}
-                </button>
-              ))}
-            </div>
+            <h2 className="text-4xl md:text-6xl font-light mb-6 tracking-tight">Clinical Excellence</h2>
+            <p className="text-gray-500 max-w-2xl mx-auto font-light leading-relaxed">
+              Experience the transformations. Drag the sliders left and right to compare our precise restorations and aesthetic results before and after.
+            </p>
           </div>
 
-          <AnimatePresence mode="wait">
-            {!selectedGalleryItem ? (
-              <motion.div 
-                key="grid"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.5 }}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-12 gap-y-20">
+            {beforeAfterCases.map((pair, idx) => (
+              <motion.div
+                key={`ba-${idx}`}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.6, delay: idx * 0.1 }}
+                className="space-y-4"
               >
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16">
-                  {filteredItems.map((item) => (
-                    <motion.div 
-                      key={item.id}
-                      layout
-                      initial={{ opacity: 0, scale: 0.9 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0, scale: 0.9 }}
-                      transition={{ duration: 0.5 }}
-                      whileHover={{ y: -10 }}
-                      className="group cursor-pointer"
-                      onClick={() => {
-                        setSelectedGalleryItem(item);
-                        const el = document.getElementById('gallery');
-                        if (el) el.scrollIntoView({ behavior: 'smooth' });
-                      }}
-                    >
-                      <div className="relative aspect-[4/5] bg-gray-50 overflow-hidden mb-8">
-                        <img 
-                          src={item.imageUrl} 
-                          alt={item.title} 
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000"
-                          referrerPolicy="no-referrer"
-                        />
-                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors duration-500" />
-                      </div>
-                      <div className="space-y-3">
-                        <div className="flex items-center gap-3">
-                          <div className="h-[1px] w-8 bg-gray-200" />
-                          <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-gray-400">{item.category}</p>
-                        </div>
-                        <h4 className="text-2xl font-light tracking-tight">{item.title}</h4>
-                      </div>
-                    </motion.div>
-                  ))}
-                </div>
+                <BeforeAfterSlider {...pair} />
               </motion.div>
-            ) : (
-              <motion.div 
-                key="album"
-                initial={{ opacity: 0, x: 50 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -50 }}
-                transition={{ duration: 0.5 }}
-                className="space-y-24"
-              >
-                <div className="flex flex-col md:flex-row items-start md:items-end justify-between gap-8 border-b border-gray-100 pb-12">
-                  <div className="space-y-6">
-                    <button 
-                      onClick={() => setSelectedGalleryItem(null)}
-                      className="flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.4em] text-gray-400 hover:text-black transition-all group"
-                    >
-                      <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-                      Back to Portfolio
-                    </button>
-                    <h3 className="text-5xl md:text-7xl font-light tracking-tighter text-[#1A1A1A]">{selectedGalleryItem.title}</h3>
-                  </div>
-                  <div className="flex flex-col items-start md:items-end gap-2">
-                    <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-[#5A5A40] bg-[#F5F5F0] px-4 py-2 rounded-full">
-                      {selectedGalleryItem.category}
-                    </span>
-                  </div>
-                </div>
-
-                {/* Comparison Section */}
-                {selectedGalleryItem.beforeAfter && selectedGalleryItem.beforeAfter.length > 0 && (
-                  <div className="space-y-12">
-                    <div className="flex items-center gap-4">
-                      <div className="h-[1px] flex-1 bg-gray-100" />
-                      <h4 className="text-[10px] font-bold uppercase tracking-[0.4em] text-gray-300">Before & After Comparisons</h4>
-                      <div className="h-[1px] flex-1 bg-gray-100" />
-                    </div>
-                    
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-                      {selectedGalleryItem.beforeAfter.map((pair, idx) => (
-                        <motion.div
-                          key={`ba-${idx}`}
-                          initial={{ opacity: 0, scale: 0.95 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          transition={{ delay: idx * 0.1 }}
-                        >
-                          <BeforeAfterSlider {...pair} />
-                        </motion.div>
-                      ))}
-                    </div>
-                  </div>
-                )}
-
-                {/* Album Grid */}
-                <div className="space-y-12">
-                  <div className="flex items-center gap-4">
-                    <div className="h-[1px] flex-1 bg-gray-100" />
-                    <h4 className="text-[10px] font-bold uppercase tracking-[0.4em] text-gray-300">Case Gallery</h4>
-                    <div className="h-[1px] flex-1 bg-gray-100" />
-                  </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {selectedGalleryItem.album?.map((img, idx) => (
-                      <motion.div 
-                        key={idx}
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: idx * 0.1 }}
-                        className="aspect-[4/5] bg-gray-50 overflow-hidden cursor-pointer group rounded-2xl border border-gray-100"
-                        onClick={() => setSelectedImage(img)}
-                      >
-                        <img 
-                          src={img} 
-                          alt={`${selectedGalleryItem.title} ${idx + 1}`} 
-                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000"
-                          referrerPolicy="no-referrer"
-                        />
-                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-500 flex items-center justify-center">
-                          <Camera className="w-8 h-8 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-500 scale-90 group-hover:scale-100" />
-                        </div>
-                      </motion.div>
-                    ))}
-                  </div>
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
+            ))}
+          </div>
           
           <div className="mt-32 text-center">
-            <button className="group flex items-center gap-4 mx-auto text-sm font-bold uppercase tracking-[0.3em] hover:opacity-50 transition-all">
-              View All Case Studies
+            <button 
+              onClick={openCalendly}
+              className="group flex items-center gap-4 mx-auto text-sm font-bold uppercase tracking-[0.3em] hover:opacity-50 transition-all"
+            >
+              Consult with our Experts
               <ArrowUpRight className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
             </button>
           </div>
@@ -1408,40 +1204,6 @@ export default function App() {
         </div>
       </footer>
 
-      {/* Lightbox */}
-      <AnimatePresence>
-        {selectedImage && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={() => setSelectedImage(null)}
-            className="fixed inset-0 z-[100] bg-black/95 flex items-center justify-center p-4 md:p-12 cursor-zoom-out"
-          >
-            <motion.button
-              initial={{ opacity: 0, scale: 0.5 }}
-              animate={{ opacity: 1, scale: 1 }}
-              className="absolute top-8 right-8 text-white hover:opacity-50 transition-opacity z-10"
-              onClick={(e) => {
-                e.stopPropagation();
-                setSelectedImage(null);
-              }}
-            >
-              <X className="w-8 h-8" />
-            </motion.button>
-            <motion.img
-              initial={{ opacity: 0, scale: 0.9, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.9, y: 20 }}
-              src={selectedImage}
-              alt="Enlarged view"
-              className="max-w-full max-h-full object-contain shadow-2xl"
-              referrerPolicy="no-referrer"
-              onClick={(e) => e.stopPropagation()}
-            />
-          </motion.div>
-        )}
-      </AnimatePresence>
     </div>
   );
 }
