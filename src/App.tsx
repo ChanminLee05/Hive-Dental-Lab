@@ -9,7 +9,6 @@ import {
   MapPin, 
   Clock, 
   ChevronRight, 
-  ArrowLeft,
   Menu, 
   X, 
   Award, 
@@ -18,19 +17,10 @@ import {
   ArrowUpRight,
   Mail,
   Instagram,
-  Facebook,
-  CheckCircle2,
   Users,
   Camera
 } from "lucide-react";
 import { useState, useEffect, ReactNode, FormEvent, MouseEvent, TouchEvent } from "react";
-
-// Declare Calendly on window for TypeScript
-declare global {
-  interface Window {
-    Calendly: any;
-  }
-}
 
 // Types
 interface ServiceCategory {
@@ -46,15 +36,6 @@ interface BeforeAfter {
   title?: string;
 }
 
-interface GalleryItem {
-  id: number;
-  title: string;
-  category: string;
-  imageUrl: string;
-  album?: string[];
-  beforeAfter?: BeforeAfter[];
-}
-
 const BeforeAfterSlider = ({ before, after, title }: BeforeAfter) => {
   const [sliderPos, setSliderPos] = useState(50);
   const [isResizing, setIsResizing] = useState(false);
@@ -63,7 +44,7 @@ const BeforeAfterSlider = ({ before, after, title }: BeforeAfter) => {
     if (!isResizing && e.type !== 'touchmove') return;
     
     const container = (e.currentTarget as HTMLElement).getBoundingClientRect();
-    const x = 'touches' in e ? e.touches[0].pageX : e.pageX;
+    const x = 'touches' in e ? e.touches[0].clientX : e.clientX;
     const position = ((x - container.left) / container.width) * 100;
     
     if (position >= 0 && position <= 100) {
@@ -85,6 +66,8 @@ const BeforeAfterSlider = ({ before, after, title }: BeforeAfter) => {
         onMouseDown={() => setIsResizing(true)}
         onMouseUp={() => setIsResizing(false)}
         onMouseLeave={() => setIsResizing(false)}
+        onTouchStart={() => setIsResizing(true)}
+        onTouchEnd={() => setIsResizing(false)}
         onTouchMove={handleMove}
       >
         {/* After Image (Background) */}
@@ -183,13 +166,100 @@ const beforeAfterCases: BeforeAfter[] = [
   },
   {
     title: "Smile Reconstruction",
-    before: "https://res.cloudinary.com/dziihg83k/image/upload/v1776910356/DSC_1138_miq6n9.jpg?auto=format&fit=crop&q=80&w=800",
-    after: "https://res.cloudinary.com/dziihg83k/image/upload/v1776910357/DSC_1273_e2w0id.jpg?auto=format&fit=crop&q=80&w=800"
+    before: "https://res.cloudinary.com/dziihg83k/image/upload/v1792555984/sb_mjtxvj.png?auto=format&fit=crop&q=80&w=800",
+    after: "https://res.cloudinary.com/dziihg83k/image/upload/v1792555793/sa_fffma9.png?auto=format&fit=crop&q=80&w=800"
   },
   {
     title: "Implant Final Fixation",
-    before: "https://res.cloudinary.com/dziihg83k/image/upload/v1776910356/DSC_0830_uvctva.jpg?auto=format&fit=crop&q=80&w=800",
-    after: "https://res.cloudinary.com/dziihg83k/image/upload/v1776910356/DSC_0838_l6eqco.jpg?auto=format&fit=crop&q=80&w=800"
+    before: "https://res.cloudinary.com/dziihg83k/image/upload/v1792556224/impb_lyxxi7.png?auto=format&fit=crop&q=80&w=800",
+    after: "https://res.cloudinary.com/dziihg83k/image/upload/v1792553927/impa_vzlmkj.png?auto=format&fit=crop&q=80&w=800"
+  }
+];
+
+interface ScannerSystem {
+  id: 'itero' | '3shape' | 'medit' | 'dscore';
+  brand: string;
+  name: string;
+  tagline: string;
+  connectionSteps: {
+    title: string;
+    steps: string[];
+    note?: string;
+  };
+  imageUrl: string;
+  imageAlt: string;
+}
+
+const scannerSystems: ScannerSystem[] = [
+  {
+    id: 'itero',
+    brand: 'Align Technology',
+    name: 'iTero Intraoral Scanner',
+    tagline: 'Chairside Connection & Align Cloud Sync',
+    connectionSteps: {
+      title: 'How to Connect to Hive',
+      steps: [
+        "Log into your myiTero.com account.",
+        "Go to Settings and select Find a Lab.",
+        "Search for Hive Dental Lab in the search bar.",
+        "Select 'Connect' — once approved, Hive Dental Lab will be permanently saved to your preferred lab list."
+      ]
+    },
+    imageUrl: 'https://dentistry.co.uk/app/uploads/2025/04/align-april.jpg?auto=format&fit=crop&q=80&w=800',
+    imageAlt: 'iTero Intraoral Scanner setup'
+  },
+  {
+    id: '3shape',
+    brand: '3Shape TRIOS',
+    name: '3Shape TRIOS Scanner',
+    tagline: '3Shape Communicate & Unite Cloud Ecosystem',
+    connectionSteps: {
+      title: 'How to Connect to Hive',
+      steps: [
+        "Log into your 3Shape Communicate account.",
+        "Go to Connections and select Add Connection.",
+        "Search for Hive Dental Lab in the search bar.",
+        "Select 'Connect' — once approved, Hive Dental Lab will be permanently saved to your preferred lab list."
+      ],
+      note: "Need direct assistance? Call (780) 433-0770 or email hivedental@gmail.com and we can send an instant connection invite."
+    },
+    imageUrl: 'https://www.mackenziedentalcentre.com/uploads/upload/review-tooth.jpg?auto=format&fit=crop&q=80&w=800',
+    imageAlt: '3Shape TRIOS setup'
+  },
+  {
+    id: 'medit',
+    brand: 'Medit Link',
+    name: 'Medit Link',
+    tagline: 'Cloud Partnership for Medit Scanners',
+    connectionSteps: {
+      title: 'How to Connect to Hive',
+      steps: [
+        "Log into your Medit Link account (meditlink.com).",
+        "In the navigation menu, select Partners and click Search Partners.",
+        "Search for Hive Dental Lab in the search bar.",
+        "Select 'Request Partnership' — once accepted, Hive Dental Lab will be permanently connected."
+      ],
+      note: "Let us know once requested so our team can immediately accept and activate your clinic's partnership."
+    },
+    imageUrl: 'https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&q=80&w=800',
+    imageAlt: 'Medit intraoral scanner workflow'
+  },
+  {
+    id: 'dscore',
+    brand: 'Dentsply Sirona',
+    name: 'DS Core & Primescan',
+    tagline: 'Fast Cloud Workflow: Primescan & Omnicam',
+    connectionSteps: {
+      title: 'How to Connect to Hive',
+      steps: [
+        "Log into your DS Core account at dscore.com.",
+        "Navigate to Partners or Laboratories from the portal dashboard.",
+        "Search for Hive Dental Lab in the search bar.",
+        "Select 'Connect' — once approved, Hive Dental Lab will be permanently linked to your practice."
+      ]
+    },
+    imageUrl: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&q=80&w=800',
+    imageAlt: 'DS Core and Primescan scanning'
   }
 ];
 
@@ -197,6 +267,8 @@ export default function App() {
   const [currentPage, setCurrentPage] = useState<'home' | 'digital-scan' | 'custom-shading'>('home');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [scannerFilter, setScannerFilter] = useState<'all' | 'itero' | '3shape' | 'medit' | 'dscore'>('all');
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -237,13 +309,29 @@ export default function App() {
     }
   };
 
-  const openCalendly = () => {
-    if (window.Calendly) {
-      window.Calendly.initPopupWidget({ url: 'https://calendly.com/lee-chanmin1' });
-    } else {
-      // Fallback if script not loaded
-      window.open('https://calendly.com/lee-chanmin1', '_blank');
+  const navigateToSection = (sectionId: string) => {
+    setIsMenuOpen(false);
+    if (currentPage === 'home') {
+      const el = document.getElementById(sectionId);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' });
+      }
+      return;
     }
+
+    setCurrentPage('home');
+    const startTime = Date.now();
+    const interval = setInterval(() => {
+      const el = document.getElementById(sectionId);
+      if (el) {
+        clearInterval(interval);
+        setTimeout(() => {
+          el.scrollIntoView({ behavior: 'smooth' });
+        }, 50);
+      } else if (Date.now() - startTime > 2500) {
+        clearInterval(interval);
+      }
+    }, 30);
   };
 
   useEffect(() => {
@@ -257,18 +345,18 @@ export default function App() {
       {/* Navigation */}
       <nav className={`fixed w-full z-50 transition-all duration-500 ${scrolled ? "bg-white/80 backdrop-blur-md py-4 shadow-sm" : "bg-transparent py-6"}`}>
         <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
-          <div className="relative h-16 w-48 md:w-64 flex items-center">
+          <div className="relative h-16 w-36 md:w-44 lg:w-64 flex items-center shrink-0">
             <img 
               src="https://res.cloudinary.com/dziihg83k/image/upload/v1776735331/%EC%9D%B4%EA%B1%B0_%EB%B0%B1%EA%B7%B8%EB%9D%BC%EC%9A%B4%EB%93%9C_%ED%88%AC%EB%AA%85%ED%95%98%EA%B2%8C_202604201934-removebg-preview_odr6mg.png" 
               alt="Hive Dental Laboratory" 
-              className="absolute left-0 h-24 md:h-36 w-auto object-contain cursor-pointer transition-all duration-300 hover:scale-105 mix-blend-multiply origin-left"
+              className="absolute left-0 h-20 md:h-28 lg:h-36 w-auto object-contain cursor-pointer transition-all duration-300 hover:scale-105 mix-blend-multiply origin-left"
               onClick={() => { setCurrentPage('home'); window.scrollTo(0, 0); }}
               referrerPolicy="no-referrer"
             />
           </div>
 
           {/* Desktop Nav */}
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden md:flex items-center gap-2.5 lg:gap-5 xl:gap-8 shrink-0">
             {["Services", "About", "Gallery", "Digital Scan", "Custom Shading", "Contact"].map((item) => (
               <button 
                 key={item} 
@@ -280,19 +368,18 @@ export default function App() {
                     setCurrentPage('custom-shading');
                     window.scrollTo(0, 0);
                   } else {
-                    setCurrentPage('home');
-                    setTimeout(() => {
-                      const el = document.getElementById(item.toLowerCase());
-                      if (el) el.scrollIntoView({ behavior: 'smooth' });
-                    }, 100);
+                    navigateToSection(item.toLowerCase());
                   }
                 }}
-                className="text-sm font-medium hover:opacity-50 transition-opacity uppercase tracking-widest opacity-100"
+                className="text-xs lg:text-sm font-medium hover:opacity-50 transition-opacity uppercase tracking-wider lg:tracking-widest whitespace-nowrap opacity-100"
               >
                 {item}
               </button>
             ))}
-            <a href="tel:7804330770" className="bg-[#1A1A1A] text-white px-6 py-2 text-sm font-medium rounded-full hover:bg-opacity-80 transition-all">
+            <a 
+              href="tel:7804330770" 
+              className="bg-[#1A1A1A] text-white px-3.5 lg:px-6 py-2 text-xs lg:text-sm font-medium rounded-full hover:bg-opacity-80 transition-all whitespace-nowrap shrink-0"
+            >
               (780) 433-0770
             </a>
           </div>
@@ -317,19 +404,16 @@ export default function App() {
               <button 
                 key={item} 
                 onClick={() => {
-                  setIsMenuOpen(false);
                   if (item === "Digital Scan") {
+                    setIsMenuOpen(false);
                     setCurrentPage('digital-scan');
                     window.scrollTo(0, 0);
                   } else if (item === "Custom Shading") {
+                    setIsMenuOpen(false);
                     setCurrentPage('custom-shading');
                     window.scrollTo(0, 0);
                   } else {
-                    setCurrentPage('home');
-                    setTimeout(() => {
-                      const el = document.getElementById(item.toLowerCase());
-                      if (el) el.scrollIntoView({ behavior: 'smooth' });
-                    }, 100);
+                    navigateToSection(item.toLowerCase());
                   }
                 }}
                 className="text-3xl font-light uppercase tracking-widest"
@@ -373,9 +457,9 @@ export default function App() {
             <span className="inline-block text-white/80 text-sm font-medium tracking-[0.3em] uppercase mb-6">
               Precision & Artistry in Edmonton
             </span>
-            <h1 className="text-5xl md:text-8xl font-light text-white leading-[1.1] tracking-tight mb-8">
-              Crafting Smiles <br />
-              <span className="italic font-serif">with Excellence</span>
+            <h1 className="text-[2.15rem] xs:text-4xl sm:text-6xl md:text-8xl font-light text-white leading-[1.15] tracking-tight mb-8">
+              <span className="block whitespace-nowrap">Crafting Smiles</span>
+              <span className="block italic font-serif">with Excellence</span>
             </h1>
             <div className="flex flex-col md:flex-row items-center justify-center gap-4">
               <a href="#contact" className="bg-white text-black px-10 py-4 rounded-full text-sm font-semibold uppercase tracking-widest hover:scale-105 transition-transform">
@@ -400,7 +484,7 @@ export default function App() {
 
       {/* Stats / Intro Section */}
       <section className="py-24 px-6 bg-white">
-        <div className="max-w-7xl mx-auto grid md:grid-grid-cols-3 gap-12 text-center">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
           <div className="space-y-2">
             <h3 className="text-4xl font-light">20+</h3>
             <p className="text-sm text-gray-500 uppercase tracking-widest">Years Experience</p>
@@ -519,7 +603,13 @@ export default function App() {
               </p>
             </div>
             <div className="pt-6">
-              <button className="flex items-center gap-3 text-sm font-bold uppercase tracking-widest group">
+              <button 
+                onClick={() => {
+                  const el = document.getElementById('services');
+                  if (el) el.scrollIntoView({ behavior: 'smooth' });
+                }}
+                className="flex items-center gap-3 text-sm font-bold uppercase tracking-widest group hover:opacity-70 transition-opacity"
+              >
                 Learn more about our process
                 <ArrowUpRight className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
               </button>
@@ -556,7 +646,10 @@ export default function App() {
           
           <div className="mt-32 text-center">
             <button 
-              onClick={openCalendly}
+              onClick={() => {
+                const el = document.getElementById('contact');
+                if (el) el.scrollIntoView({ behavior: 'smooth' });
+              }}
               className="group flex items-center gap-4 mx-auto text-sm font-bold uppercase tracking-[0.3em] hover:opacity-50 transition-all"
             >
               Consult with our Experts
@@ -569,10 +662,13 @@ export default function App() {
       {/* Contact Section */}
       <section id="contact" className="py-32 px-6 bg-white">
         <div className="max-w-7xl mx-auto">
-          <div className="grid lg:grid-cols-2 gap-24">
+          <div className="grid lg:grid-cols-2 gap-20">
             <div>
               <span className="text-xs font-bold tracking-[0.4em] uppercase text-gray-400 mb-4 block">Contact Us</span>
-              <h2 className="text-4xl md:text-6xl font-light leading-tight mb-12">Let's build something <br /><span className="italic font-serif">together.</span></h2>
+              <h2 className="text-[1.75rem] xs:text-3xl sm:text-5xl md:text-6xl font-light leading-tight mb-8 sm:mb-12">
+                <span className="block">Let's build something</span>
+                <span className="block italic font-serif">extraordinary together.</span>
+              </h2>
               
               <div className="space-y-10">
                 <div className="flex items-start gap-6">
@@ -590,8 +686,17 @@ export default function App() {
                     <Phone className="w-5 h-5" />
                   </div>
                   <div>
-                    <h4 className="font-medium mb-1 uppercase tracking-widest text-xs text-gray-400">Phone</h4>
-                    <a href="tel:7804330770" className="text-lg hover:underline">(780) 433-0770</a>
+                    <h4 className="font-medium mb-1.5 uppercase tracking-widest text-xs text-gray-400">Phone</h4>
+                    <div className="space-y-1.5">
+                      <div className="flex items-center gap-2.5">
+                        <span className="text-[11px] font-semibold uppercase tracking-wider text-gray-500 bg-gray-100 px-2 py-0.5 rounded">Office</span>
+                        <a href="tel:7804330770" className="text-lg hover:underline">(780) 433-0770</a>
+                      </div>
+                      <div className="flex items-center gap-2.5">
+                        <span className="text-[11px] font-semibold uppercase tracking-wider text-gray-500 bg-gray-100 px-2 py-0.5 rounded">Mobile</span>
+                        <a href="tel:7802467797" className="text-lg hover:underline">(780) 246-7797</a>
+                      </div>
+                    </div>
                   </div>
                 </div>
 
@@ -601,7 +706,7 @@ export default function App() {
                   </div>
                   <div>
                     <h4 className="font-medium mb-1 uppercase tracking-widest text-xs text-gray-400">Hours</h4>
-                    <p className="text-lg">Mon — Fri: 8:00 AM - 4:30 PM</p>
+                    <p className="text-sm xs:text-base sm:text-lg whitespace-nowrap">Mon — Fri: 8:00 AM - 4:30 PM</p>
                   </div>
                 </div>
 
@@ -698,36 +803,31 @@ export default function App() {
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: -20 }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.3 }}
           className="pt-32"
         >
           {/* Digital Scan Hero */}
-          <section className="py-24 px-6 bg-white">
+          <section className="py-12 sm:py-20 md:py-24 px-5 sm:px-6 bg-white">
             <div className="max-w-7xl mx-auto">
-              <div className="grid lg:grid-cols-2 gap-16 items-center">
+              <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
                 <div>
-                  <span className="text-xs font-bold tracking-[0.4em] uppercase text-gray-400 mb-6 block">Digital Workflow</span>
-                  <h1 className="text-5xl md:text-7xl font-light leading-tight mb-8">
-                    Connecting Your Clinic <br />
-                    <span className="italic font-serif text-black">to Hive Dental Lab</span>
+                  <span className="text-xs font-bold tracking-[0.4em] uppercase text-gray-400 mb-4 sm:mb-6 block">Digital Workflow</span>
+                  <h1 className="text-[1.65rem] xs:text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-light leading-[1.15] md:leading-tight mb-6 md:mb-8">
+                    <span className="block whitespace-nowrap">Connecting Your Clinic</span>
+                    <span className="block italic font-serif text-black whitespace-nowrap">to Hive Dental Lab</span>
                   </h1>
-                  <p className="text-xl text-gray-500 mb-10 leading-relaxed max-w-lg">
-                    Start sending your digital impressions directly to our lab in just a few steps. We support all major intraoral scanners.
+                  <p className="text-base sm:text-lg md:text-xl text-gray-500 mb-8 md:mb-10 leading-relaxed max-w-2xl">
+                    <span className="md:block">Start sending your digital impressions to our lab in a few steps.</span>{' '}
+                    <span className="md:block">We support all major intraoral scanners.</span>
                   </p>
-                  <div className="flex gap-4">
+                  <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
                     <button 
-                      onClick={() => {
-                        setCurrentPage('home');
-                        setTimeout(() => {
-                          const el = document.getElementById('contact');
-                          if (el) el.scrollIntoView({ behavior: 'smooth' });
-                        }, 100);
-                      }}
-                      className="bg-black text-white px-8 py-4 rounded-full text-sm font-bold uppercase tracking-widest hover:bg-opacity-80 transition-all"
+                      onClick={() => navigateToSection('contact')}
+                      className="w-full sm:w-auto text-center bg-black text-white px-7 py-3.5 sm:px-8 sm:py-4 rounded-full text-xs sm:text-sm font-bold uppercase tracking-widest hover:bg-opacity-80 transition-all cursor-pointer"
                     >
                       Request Consultation
                     </button>
-                    <a href="tel:7804330770" className="border border-gray-200 px-8 py-4 rounded-full text-sm font-bold uppercase tracking-widest hover:bg-gray-50 transition-all">
+                    <a href="tel:7804330770" className="w-full sm:w-auto text-center border border-gray-200 px-7 py-3.5 sm:px-8 sm:py-4 rounded-full text-xs sm:text-sm font-bold uppercase tracking-widest hover:bg-gray-50 transition-all">
                       Call Now
                     </a>
                   </div>
@@ -747,161 +847,146 @@ export default function App() {
           </section>
 
           {/* Scanners Section */}
-          <section className="py-32 px-6 bg-[#F9F9F9]">
+          <section className="py-12 sm:py-20 md:py-28 px-4 sm:px-6 bg-[#F9F9F9]">
             <div className="max-w-7xl mx-auto">
-              <div className="text-center mb-24">
-                <span className="text-xs font-bold tracking-[0.4em] uppercase text-black mb-4 block">Digital Scans</span>
-                <h2 className="text-4xl md:text-5xl font-light">Scanners We Accept</h2>
-                <p className="text-gray-500 mt-4">We are compatible with the following systems</p>
+              <div className="text-center mb-10 sm:mb-16">
+                <span className="text-xs font-bold tracking-[0.4em] uppercase text-[#5A5A40] mb-4 block">Digital Scans & Integration</span>
+                <h2 className="text-3xl sm:text-4xl md:text-6xl font-light tracking-tight mb-4 sm:mb-6">Compatible Scanners</h2>
+                <p className="text-gray-500 max-w-2xl mx-auto text-sm sm:text-base md:text-lg font-light leading-relaxed">
+                  Hive Dental Lab seamlessly integrates with all major intraoral scanners.
+                </p>
+
+                {/* Unified System Filter Tabs */}
+                <div className="flex flex-wrap justify-center items-center gap-2 md:gap-3 mt-6 sm:mt-10">
+                  <button
+                    onClick={() => setScannerFilter('all')}
+                    className={`px-4 sm:px-6 py-2 sm:py-2.5 rounded-full text-[11px] sm:text-xs font-bold tracking-wider sm:tracking-widest uppercase transition-all duration-300 border ${
+                      scannerFilter === 'all'
+                        ? 'bg-black text-white border-black shadow-md shadow-black/10'
+                        : 'bg-white text-gray-500 border-gray-200 hover:border-gray-400'
+                    }`}
+                  >
+                    All Scanners
+                  </button>
+                  {scannerSystems.map((s) => (
+                    <button
+                      key={s.id}
+                      onClick={() => setScannerFilter(s.id)}
+                      className={`px-4 sm:px-6 py-2 sm:py-2.5 rounded-full text-[11px] sm:text-xs font-bold tracking-wider sm:tracking-widest uppercase transition-all duration-300 border ${
+                        scannerFilter === s.id
+                          ? 'bg-black text-white border-black shadow-md shadow-black/10'
+                          : 'bg-white text-gray-500 border-gray-200 hover:border-gray-400'
+                      }`}
+                    >
+                      {s.name.split(' ')[0]}
+                    </button>
+                  ))}
+                </div>
               </div>
 
-              <div className="space-y-32">
-                {/* iTero */}
-                <div className="grid lg:grid-cols-2 gap-20 items-center">
-                  <div className="space-y-8">
-                    <div>
-                      <span className="text-xs font-bold text-black uppercase tracking-widest mb-2 block">iTero Scanner</span>
-                      <h3 className="text-3xl font-light">Option 1 — Quick Setup on Scanner</h3>
-                    </div>
-                    <ul className="space-y-6">
-                      {[
-                        "On your iTero scanner, select 'Find a Laboratory.'",
-                        "Search and connect with Hive Dental Lab using our Lab ID: 144030.",
-                        "Once connected, simply select Hive Dental Lab when sending your scans."
-                      ].map((step, i) => (
-                        <li key={i} className="flex gap-4">
-                          <CheckCircle2 className="w-6 h-6 text-black shrink-0" />
-                          <p className="text-gray-600 leading-relaxed">{step}</p>
-                        </li>
-                      ))}
-                    </ul>
-                    <a href="tel:7804330770" className="inline-block bg-black text-white px-8 py-3 rounded-lg text-sm font-bold uppercase tracking-widest hover:bg-gray-800 transition-all">
-                      Call Now
-                    </a>
-                  </div>
-                  <div className="rounded-3xl overflow-hidden shadow-xl">
-                    <img src="https://dentistry.co.uk/app/uploads/2025/04/align-april.jpg?auto=format&fit=crop&q=80&w=800" alt="iTero Setup" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
-                  </div>
-                </div>
+              {/* Scanner Cards Showcase */}
+              <div className="space-y-8 sm:space-y-16 md:space-y-24">
+                {scannerSystems
+                  .filter((s) => scannerFilter === 'all' || scannerFilter === s.id)
+                  .map((scanner) => (
+                    <motion.div
+                      key={scanner.id}
+                      id={`scanner-${scanner.id}`}
+                      initial={{ opacity: 0, y: 30 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true, margin: "-80px" }}
+                      transition={{ duration: 0.6 }}
+                      className="bg-white rounded-3xl md:rounded-[2.5rem] p-5 sm:p-8 md:p-12 lg:p-16 border border-gray-100 shadow-sm relative overflow-hidden"
+                    >
+                      {/* Header Row */}
+                      <div className="pb-5 sm:pb-8 border-b border-gray-100 mb-6 sm:mb-10">
+                        <div className="space-y-2 sm:space-y-3">
+                          <div className="flex flex-wrap items-center gap-2 sm:gap-3">
+                            <span className="text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.2em] sm:tracking-[0.3em] text-[#5A5A40] bg-[#F5F5F0] px-3 py-1 rounded-full whitespace-nowrap">
+                              {scanner.brand}
+                            </span>
+                            <span className="text-[10px] sm:text-[11px] font-medium text-gray-400 uppercase tracking-wider sm:tracking-widest">
+                              {scanner.tagline}
+                            </span>
+                          </div>
+                          <h3 className="text-2xl sm:text-3xl md:text-5xl font-light tracking-tight text-black">
+                            {scanner.name}
+                          </h3>
+                        </div>
+                      </div>
 
-                {/* 3Shape Trios */}
-                <div className="grid lg:grid-cols-2 gap-20 items-center">
-                  <div className="lg:order-2 space-y-8">
-                    <div>
-                      <span className="text-xs font-bold text-black uppercase tracking-widest mb-2 block">How to Connect to Hive</span>
-                      <h3 className="text-3xl font-light">Trios — 3Shape Connection</h3>
-                    </div>
-                    <div className="space-y-6">
-                      <p className="text-gray-600 font-bold">Option 1:</p>
-                      <ul className="space-y-4">
-                        {[
-                          "Open your 3Shape Communicate portal in your browser.",
-                          "Go to Connections.",
-                          "Search for and request a connection with Hive Dental Lab."
-                        ].map((step, i) => (
-                          <li key={i} className="flex gap-4">
-                            <CheckCircle2 className="w-5 h-5 text-black shrink-0" />
-                            <p className="text-gray-600 text-sm">{step}</p>
-                          </li>
-                        ))}
-                      </ul>
-                      <p className="text-gray-600 font-bold mt-4">Option 2:</p>
-                      <p className="text-gray-600 text-sm">Email us at <span className="text-black font-semibold underline">hivedental@gmail.com</span> or call (780) 433-0770. We'll send you a connection invite—just approve it to get started.</p>
-                    </div>
-                    <a href="tel:7804330770" className="inline-block bg-black text-white px-8 py-3 rounded-lg text-sm font-bold uppercase tracking-widest hover:bg-gray-800 transition-all">
-                      Call Now
-                    </a>
-                  </div>
-                  <div className="lg:order-1 rounded-3xl overflow-hidden shadow-xl">
-                    <img src="https://www.mackenziedentalcentre.com/uploads/upload/review-tooth.jpg?auto=format&fit=crop&q=80&w=800" alt="3Shape Setup" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
-                  </div>
-                </div>
+                      {/* Main Grid: Steps & Media */}
+                      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-center">
+                        {/* Instructions Column (7 cols) */}
+                        <div className="lg:col-span-7 space-y-6">
+                          {/* Connection Protocol */}
+                          <div className="space-y-4">
+                            <div className="flex flex-wrap items-center gap-2.5 sm:gap-3">
+                              <span className="text-[11px] sm:text-xs font-bold uppercase tracking-[0.25em] sm:tracking-[0.3em] text-[#5A5A40] whitespace-nowrap">
+                                Connection Guide
+                              </span>
+                              <div className="h-[1px] w-5 sm:w-6 bg-gray-200" />
+                              <h4 className="text-lg sm:text-xl md:text-2xl font-light text-black">
+                                {scanner.connectionSteps.title}
+                              </h4>
+                            </div>
 
-                {/* Medit */}
-                <div className="grid lg:grid-cols-2 gap-20 items-center">
-                  <div className="space-y-8">
-                    <div>
-                      <span className="text-xs font-bold text-black uppercase tracking-widest mb-2 block">How to Connect to Hive</span>
-                      <h3 className="text-3xl font-light">Medit (Meditlink)</h3>
-                    </div>
-                    <ul className="space-y-4">
-                      {[
-                        "Log into Meditlink.",
-                        "Click Partner and enter Hive Dental Lab.",
-                        "Call or email us to let us know you've sent the request."
-                      ].map((step, i) => (
-                        <li key={i} className="flex gap-4">
-                          <CheckCircle2 className="w-5 h-5 text-black shrink-0" />
-                          <p className="text-gray-600 text-sm">{step}</p>
-                        </li>
-                      ))}
-                    </ul>
-                    <div className="p-6 bg-white rounded-2xl border border-gray-100">
-                      <p className="font-bold text-sm mb-4">To Send Cases:</p>
-                      <ul className="space-y-2 text-[0.7rem] text-gray-500">
-                        <li>• After scanning, go to the Case Details page.</li>
-                        <li>• Click Order, fill out the form, and click OK.</li>
-                        <li>• Your order will show as Accepted, and then Shipped.</li>
-                      </ul>
-                    </div>
-                  </div>
-                  <div className="rounded-3xl overflow-hidden shadow-xl">
-                    <img src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&q=80&w=800" alt="Medit Setup" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
-                  </div>
-                </div>
+                            <div className="space-y-2.5 sm:space-y-3.5 pt-2">
+                              {scanner.connectionSteps.steps.map((step, sIdx) => (
+                                <div
+                                  key={sIdx}
+                                  className="flex items-start gap-3 sm:gap-4 p-3.5 sm:p-4 md:p-5 rounded-2xl bg-[#FAFAFA] border border-gray-100 hover:border-gray-200 transition-colors"
+                                >
+                                  <span className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-black text-white text-xs font-semibold flex items-center justify-center shrink-0 mt-0.5 shadow-sm">
+                                    {sIdx + 1}
+                                  </span>
+                                  <p className="text-sm sm:text-base md:text-lg text-gray-800 leading-relaxed font-light">
+                                    {step}
+                                  </p>
+                                </div>
+                              ))}
 
-                {/* DS Core */}
-                <div className="grid lg:grid-cols-2 gap-20 items-center">
-                  <div className="lg:order-2 space-y-8">
-                    <div>
-                      <span className="text-xs font-bold text-black uppercase tracking-widest mb-2 block">Dentsply Sirona</span>
-                      <h3 className="text-3xl font-light">DS Core Connection</h3>
-                    </div>
-                    <ul className="space-y-4">
-                      {[
-                        "Log into your DS Core account.",
-                        "Navigate to 'Partners' or 'Laboratories'.",
-                        "Search for 'Hive Dental Lab' and send a connection request.",
-                        "Once accepted, you can send cases directly through the DS Core platform."
-                      ].map((step, i) => (
-                        <li key={i} className="flex gap-4">
-                          <CheckCircle2 className="w-5 h-5 text-black shrink-0" />
-                          <p className="text-gray-600 text-sm">{step}</p>
-                        </li>
-                      ))}
-                    </ul>
-                    <div className="p-6 bg-white rounded-2xl border border-gray-100">
-                      <p className="font-bold text-sm mb-4">Why DS Core?</p>
-                      <p className="text-sm text-gray-500 leading-relaxed">
-                        DS Core provides a seamless, cloud-based workflow for Dentsply Sirona users, ensuring high-speed data transfer and secure case management.
-                      </p>
-                    </div>
-                    <a href="tel:7804330770" className="inline-block bg-black text-white px-8 py-3 rounded-lg text-sm font-bold uppercase tracking-widest hover:bg-gray-800 transition-all">
-                      Call Now
-                    </a>
-                  </div>
-                  <div className="lg:order-1 rounded-3xl overflow-hidden shadow-xl">
-                    <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&q=80&w=800" alt="DS Core Setup" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
-                  </div>
-                </div>
+                              {scanner.connectionSteps.note && (
+                                <div className="p-3.5 sm:p-4 rounded-2xl bg-amber-50/60 border border-amber-200/60 text-amber-900 text-xs sm:text-sm leading-relaxed font-light flex items-start gap-2.5 sm:gap-3 mt-3 sm:mt-4">
+                                  <Sparkles className="w-4 h-4 text-amber-700 shrink-0 mt-0.5" />
+                                  <span>{scanner.connectionSteps.note}</span>
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                        </div>
 
+                        {/* Image Column (5 cols) - Clean, pristine photo without text overlay */}
+                        <div className="lg:col-span-5">
+                          <div className="relative aspect-[4/3] lg:aspect-[4/3.8] rounded-2xl sm:rounded-3xl overflow-hidden shadow-md sm:shadow-lg border border-gray-100 bg-gray-50 group">
+                            <img
+                              src={scanner.imageUrl}
+                              alt={scanner.imageAlt}
+                              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                              referrerPolicy="no-referrer"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </motion.div>
+                  ))}
               </div>
             </div>
           </section>
 
           {/* Help Section */}
-          <section className="py-32 px-6 bg-white">
+          <section className="py-14 sm:py-24 md:py-32 px-4 sm:px-6 bg-white">
             <div className="max-w-7xl mx-auto">
-              <div className="bg-[#1A1A1A] text-white p-12 md:p-24 rounded-[3rem] relative overflow-hidden">
+              <div className="bg-[#1A1A1A] text-white p-7 sm:p-14 md:p-24 rounded-3xl md:rounded-[3rem] relative overflow-hidden">
                 <div className="relative z-10 max-w-2xl mx-auto text-center">
-                  <span className="text-xs font-bold tracking-[0.4em] uppercase text-gray-400 mb-6 block">Support</span>
-                  <h2 className="text-4xl md:text-6xl font-light mb-8">Need Help?</h2>
-                  <p className="text-lg text-gray-400 mb-12 max-w-md mx-auto">We're available to assist you with scanner setup or any technical questions.</p>
+                  <span className="text-xs font-bold tracking-[0.4em] uppercase text-gray-400 mb-4 sm:mb-6 block">Support</span>
+                  <h2 className="text-3xl sm:text-4xl md:text-6xl font-light mb-6 md:mb-8">Need Help?</h2>
+                  <p className="text-base sm:text-lg text-gray-400 mb-8 sm:mb-12 max-w-md mx-auto">We're available to assist you with scanner setup or any technical questions.</p>
                   
-                  <div className="pt-12 border-t border-white/10">
+                  <div className="pt-8 sm:pt-12 border-t border-white/10">
                     <a 
                       href="mailto:hivedental@gmail.com" 
-                      className="text-xl md:text-3xl font-light hover:text-gray-400 transition-colors break-all tracking-tight"
+                      className="text-lg sm:text-2xl md:text-3xl font-light hover:text-gray-400 transition-colors break-all tracking-tight"
                     >
                       hivedental@gmail.com
                     </a>
@@ -919,7 +1004,7 @@ export default function App() {
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: -20 }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.3 }}
           className="pt-32"
         >
           {/* Custom Shading Hero */}
@@ -944,8 +1029,8 @@ export default function App() {
                   </p>
                   <div className="flex flex-col sm:flex-row gap-6">
                     <button 
-                      onClick={openCalendly}
-                      className="bg-black text-white px-10 py-5 rounded-full text-sm font-bold uppercase tracking-widest hover:bg-opacity-80 transition-all text-center shadow-lg shadow-black/10"
+                      onClick={() => navigateToSection('contact')}
+                      className="bg-black text-white px-10 py-5 rounded-full text-sm font-bold uppercase tracking-widest hover:bg-opacity-80 transition-all text-center shadow-lg shadow-black/10 cursor-pointer"
                     >
                       Book Appointment
                     </button>
@@ -1038,8 +1123,8 @@ export default function App() {
                     <p className="text-xl font-light mb-4 text-white">Hive Dental Laboratory</p>
                     <p className="text-gray-400 mb-8">Edmonton, AB</p>
                     <button 
-                      onClick={openCalendly}
-                      className="inline-block bg-white text-black px-10 py-4 rounded-full text-sm font-bold uppercase tracking-widest hover:bg-gray-200 transition-all"
+                      onClick={() => navigateToSection('contact')}
+                      className="inline-block bg-white text-black px-10 py-4 rounded-full text-sm font-bold uppercase tracking-widest hover:bg-gray-200 transition-all cursor-pointer"
                     >
                       Book In-Lab Slot
                     </button>
@@ -1096,42 +1181,24 @@ export default function App() {
               <ul className="space-y-4 text-gray-400 text-sm">
                 <li>
                   <button 
-                    onClick={() => {
-                      setCurrentPage('home');
-                      setTimeout(() => {
-                        const el = document.getElementById('services');
-                        if (el) el.scrollIntoView({ behavior: 'smooth' });
-                      }, 100);
-                    }}
-                    className="hover:text-white transition-colors"
+                    onClick={() => navigateToSection('services')}
+                    className="hover:text-white transition-colors cursor-pointer"
                   >
                     Services
                   </button>
                 </li>
                 <li>
                   <button 
-                    onClick={() => {
-                      setCurrentPage('home');
-                      setTimeout(() => {
-                        const el = document.getElementById('about');
-                        if (el) el.scrollIntoView({ behavior: 'smooth' });
-                      }, 100);
-                    }}
-                    className="hover:text-white transition-colors"
+                    onClick={() => navigateToSection('about')}
+                    className="hover:text-white transition-colors cursor-pointer"
                   >
                     About
                   </button>
                 </li>
                 <li>
                   <button 
-                    onClick={() => {
-                      setCurrentPage('home');
-                      setTimeout(() => {
-                        const el = document.getElementById('gallery');
-                        if (el) el.scrollIntoView({ behavior: 'smooth' });
-                      }, 100);
-                    }}
-                    className="hover:text-white transition-colors"
+                    onClick={() => navigateToSection('gallery')}
+                    className="hover:text-white transition-colors cursor-pointer"
                   >
                     Gallery
                   </button>
@@ -1142,7 +1209,7 @@ export default function App() {
                       setCurrentPage('digital-scan');
                       window.scrollTo(0, 0);
                     }}
-                    className="hover:text-white transition-colors"
+                    className="hover:text-white transition-colors cursor-pointer"
                   >
                     Digital Scan
                   </button>
@@ -1153,21 +1220,15 @@ export default function App() {
                       setCurrentPage('custom-shading');
                       window.scrollTo(0, 0);
                     }}
-                    className="hover:text-white transition-colors"
+                    className="hover:text-white transition-colors cursor-pointer"
                   >
                     Custom Shading
                   </button>
                 </li>
                 <li>
                   <button 
-                    onClick={() => {
-                      setCurrentPage('home');
-                      setTimeout(() => {
-                        const el = document.getElementById('contact');
-                        if (el) el.scrollIntoView({ behavior: 'smooth' });
-                      }, 100);
-                    }}
-                    className="hover:text-white transition-colors"
+                    onClick={() => navigateToSection('contact')}
+                    className="hover:text-white transition-colors cursor-pointer"
                   >
                     Contact
                   </button>
@@ -1195,7 +1256,7 @@ export default function App() {
             </div>
           </div>
           <div className="pt-12 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-6 text-xs text-gray-500 uppercase tracking-widest">
-            <p>© 2024 Hive Dental Laboratory. All rights reserved.</p>
+            <p>© {new Date().getFullYear()} Hive Dental Laboratory. All rights reserved.</p>
             <div className="flex gap-8">
               <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
               <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
