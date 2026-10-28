@@ -34,9 +34,10 @@ interface BeforeAfter {
   before: string;
   after: string;
   title?: string;
+  aspectRatio?: string;
 }
 
-const BeforeAfterSlider = ({ before, after, title }: BeforeAfter) => {
+const BeforeAfterSlider = ({ before, after, title, aspectRatio = '4/3' }: BeforeAfter) => {
   const [sliderPos, setSliderPos] = useState(50);
   const [isResizing, setIsResizing] = useState(false);
 
@@ -61,7 +62,8 @@ const BeforeAfterSlider = ({ before, after, title }: BeforeAfter) => {
         </span>
       </div>
       <div 
-        className="relative aspect-[4/3] w-full overflow-hidden rounded-[2rem] cursor-col-resize select-none border border-gray-100 shadow-xl"
+        className="relative w-full overflow-hidden rounded-[2rem] cursor-col-resize select-none border border-gray-100 shadow-xl bg-neutral-900"
+        style={{ aspectRatio }}
         onMouseMove={handleMove}
         onMouseDown={() => setIsResizing(true)}
         onMouseUp={() => setIsResizing(false)}
@@ -75,7 +77,7 @@ const BeforeAfterSlider = ({ before, after, title }: BeforeAfter) => {
           <img 
             src={after} 
             alt="After" 
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover object-center"
             referrerPolicy="no-referrer"
           />
           <div className="absolute bottom-4 right-4 bg-black/50 backdrop-blur-md text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full">
@@ -91,7 +93,7 @@ const BeforeAfterSlider = ({ before, after, title }: BeforeAfter) => {
           <img 
             src={before} 
             alt="Before" 
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover object-center"
             referrerPolicy="no-referrer"
           />
           <div className="absolute bottom-4 left-4 bg-white/80 backdrop-blur-md text-black text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full">
@@ -126,19 +128,19 @@ const serviceCategories: ServiceCategory[] = [
   { 
     name: "Aesthetic & Planning", 
     description: "Meticulous design for the perfect smile transformation.",
-    items: ["Veneers", "Diagnostic Wax-up", "Custom Shading"],
+    items: ["Non-prep Veneers", "Veneers", "Diagnostic Wax-up", "Custom Shading"],
     icon: <Sparkles className="w-8 h-8" />
   },
   { 
     name: "Implant Solutions", 
-    description: "Precision-engineered implant components for predictable clinical results.",
-    items: ["Implant Crowns", "Custom Abutments", "Screw-retained Bridges", "Surgical Guides"],
+    description: "Precision-engineered restorations compatible with all major implant systems, backed by dedicated case consultation.",
+    items: ["Custom Abutments", "Stock Abutments", "Screw-retained Restorations", "All Major Brands Supported", "Case Planning & Consultation"],
     icon: <Award className="w-8 h-8" />
   },
   { 
-    name: "Orthodontics & Protection", 
+    name: "Appliances", 
     description: "Custom-fit appliances designed for patient comfort and protection.",
-    items: ["Space Maintainers", "Night Guards (Hard/Soft)", "Sports Guards", "Splints"],
+    items: ["Space Maintainers", "Night Guards (Hard/Soft/Dual)", "Sports Guards", "Essix Retainer"],
     icon: <ShieldCheck className="w-8 h-8" />
   },
 ];
@@ -146,33 +148,39 @@ const serviceCategories: ServiceCategory[] = [
 const beforeAfterCases: BeforeAfter[] = [
   {
     title: "Smile Reconstruction",
-    before: "https://res.cloudinary.com/dziihg83k/image/upload/v1782270195/before1_ttvi5w.png?auto=format&fit=crop&q=80&w=800",
-    after: "https://res.cloudinary.com/dziihg83k/image/upload/v1782270195/after1_dubdjl.png?auto=format&fit=crop&q=80&w=800"
+    before: "https://res.cloudinary.com/dziihg83k/image/upload/v1782270195/before1_ttvi5w.png",
+    after: "https://res.cloudinary.com/dziihg83k/image/upload/v1782270195/after1_dubdjl.png",
+    aspectRatio: "16 / 9"
   },
   {
     title: "Smile Reconstruction",
-    before: "https://res.cloudinary.com/dziihg83k/image/upload/v1782270694/before2_snypil.png?auto=format&fit=crop&q=80&w=800",
-    after: "https://res.cloudinary.com/dziihg83k/image/upload/v1782270694/after2_lt7x8t.png?auto=format&fit=crop&q=80&w=800"
+    before: "https://res.cloudinary.com/dziihg83k/image/upload/v1782270694/before2_snypil.png",
+    after: "https://res.cloudinary.com/dziihg83k/image/upload/v1782270694/after2_lt7x8t.png",
+    aspectRatio: "16 / 9"
   },
   {
     title: "Smile Reconstruction",
-    before: "https://res.cloudinary.com/dziihg83k/image/upload/v1782272552/before3_hafc38.png?auto=format&fit=crop&q=80&w=800",
-    after: "https://res.cloudinary.com/dziihg83k/image/upload/v1782272551/after3_w6zncb.png?auto=format&fit=crop&q=80&w=800"
+    before: "https://res.cloudinary.com/dziihg83k/image/upload/v1782274796/before4_dz9ku4.jpg",
+    after: "https://res.cloudinary.com/dziihg83k/image/upload/v1782274795/after4_vobtxn.jpg",
+    aspectRatio: "16 / 9"
   },
   {
     title: "Smile Reconstruction",
-    before: "https://res.cloudinary.com/dziihg83k/image/upload/v1782274796/before4_dz9ku4.jpg?auto=format&fit=crop&q=80&w=800",
-    after: "https://res.cloudinary.com/dziihg83k/image/upload/v1782274795/after4_vobtxn.jpg?auto=format&fit=crop&q=80&w=800"
+    before: "https://res.cloudinary.com/dziihg83k/image/upload/v1793226340/DSC_1138_axjhgl.jpg",
+    after: "https://res.cloudinary.com/dziihg83k/image/upload/v1793226203/DSC_1273_lxemea.jpg",
+    aspectRatio: "16 / 9"
   },
   {
     title: "Smile Reconstruction",
-    before: "https://res.cloudinary.com/dziihg83k/image/upload/v1792555984/sb_mjtxvj.png?auto=format&fit=crop&q=80&w=800",
-    after: "https://res.cloudinary.com/dziihg83k/image/upload/v1792555793/sa_fffma9.png?auto=format&fit=crop&q=80&w=800"
+    before: "https://res.cloudinary.com/dziihg83k/image/upload/v1793227036/Gemini_Generated_Image_nm266inm266inm26_c1eptb.jpg",
+    after: "https://res.cloudinary.com/dziihg83k/image/upload/v1782272551/after3_w6zncb.png",
+    aspectRatio: "7 / 5"
   },
   {
     title: "Implant Final Fixation",
-    before: "https://res.cloudinary.com/dziihg83k/image/upload/v1792556224/impb_lyxxi7.png?auto=format&fit=crop&q=80&w=800",
-    after: "https://res.cloudinary.com/dziihg83k/image/upload/v1792553927/impa_vzlmkj.png?auto=format&fit=crop&q=80&w=800"
+    before: "https://res.cloudinary.com/dziihg83k/image/upload/v1793225453/DSC_0830_hebgnf.jpg",
+    after: "https://res.cloudinary.com/dziihg83k/image/upload/v1793225346/DSC_0838_npk4tk.jpg",
+    aspectRatio: "7 / 5"
   }
 ];
 
@@ -247,7 +255,7 @@ const scannerSystems: ScannerSystem[] = [
   {
     id: 'dscore',
     brand: 'Dentsply Sirona',
-    name: 'DS Core & Primescan',
+    name: 'DS Core & Primescanner',
     tagline: 'Fast Cloud Workflow: Primescan & Omnicam',
     connectionSteps: {
       title: 'How to Connect to Hive',
