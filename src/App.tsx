@@ -209,9 +209,10 @@ const scannerSystems: ScannerSystem[] = [
       steps: [
         "Log into your myiTero.com account.",
         "Go to Settings and select Find a Lab.",
-        "Search for Hive Dental Lab in the search bar.",
+        "Search for Hive Dental Lab (Lab ID: 144030) in the search bar.",
         "Select 'Connect' — once approved, Hive Dental Lab will be permanently saved to your preferred lab list."
-      ]
+      ],
+      note: "Need direct assistance? Call (780) 433-0770 or email hivedental@gmail.com and we can send an instant connection invite."
     },
     imageUrl: 'https://dentistry.co.uk/app/uploads/2025/04/align-april.jpg?auto=format&fit=crop&q=80&w=800',
     imageAlt: 'iTero Intraoral Scanner setup'
