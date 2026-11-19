@@ -140,7 +140,7 @@ const serviceCategories: ServiceCategory[] = [
   { 
     name: "Appliances", 
     description: "Custom-fit appliances designed for patient comfort and protection.",
-    items: ["Space Maintainers", "Night Guards (Hard/Soft/Dual)", "Sports Guards", "Essix Retainer"],
+    items: ["Space Maintainers", "Night Guards (Hard/Soft/Dual)", "Sports Guards", "Essix Retainer", "Bleaching Trays"],
     icon: <ShieldCheck className="w-8 h-8" />
   },
 ];
